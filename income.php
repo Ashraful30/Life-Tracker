@@ -55,63 +55,25 @@
 	<?php include 'helper/header.php'; ?>
 
 
-	<div class="container">
-		
-		<div class="row justify-content-center" id="bottom">
-			<div class="card" style="min-width: 60%;margin-top: 150px;margin-bottom: 200px;">
-				<h3 class="card-header bg-primary text-white">Add Earning</h3>
-				<div class="card-body">
-					<form >
+	<div class="container-fluid" >		
+		<div class="row">
 
-						<div class="form-group row">
-							<label for="guestnom" class="col-md-3 col-from-label">Number of Guests</label>
-							<div class="col-md-9">
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-									<label class="form-check-label" for="inlineRadio1">1</label>
-								  </div>
-								  <div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-									<label class="form-check-label" for="inlineRadio2">2</label>
-								  </div>
-								  <div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-									<label class="form-check-label" for="inlineRadio3">3</label>
-								  </div>
-								  <div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4">
-									<label class="form-check-label" for="inlineRadio4">4</label>
-								  </div>
-								  <div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option5">
-									<label class="form-check-label" for="inlineRadio5">5</label>
-								  </div>
-								  <div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio6" value="option6">
-									<label class="form-check-label" for="inlineRadio6">6</label>
-								  </div>
-							</div>
-						</div>
-						
-						<div class="form-group row">
-							<label for="date" class="col-12 col-md-3 col-from-label">Date and Time</label>
-							<div class="col-6 col-md-3">
-								<input type="text" class="form-control" name="date" id="date" placeholder="Date">
-							</div>
-							<div class="col-6 col-md-3">
-								<input type="text" class="form-control" name="time" id="time" placeholder="Time">
-							</div>
-						</div>
+			<div class="col-sm-3" style="min-height: 650px;background: lightgrey">
 
-						<div class="form-group row">
-							<div class="offset-md-3 col-md">
-								<button type="submit" class="btn btn-primary">Reserve</button>
-							</div>
-						</div>
-					</form>
+				<div class="row">
+					<a class="list-unstyled pt-2" href="helper/add_income.php" style="text-decoration:none;width: 100%;"><button type="button" class="btn login btn-block">Add Income</button></a>		
 				</div>
+				<div class="row">
+					<a class="list-unstyled" href="helper/manage_income.php" style="text-decoration:none;width: 100%;"><button type="button" class="btn login btn-block">Manage Income</button></a>		
+				</div>
+
 			</div>
-		</div>
+
+			<div class="col-sm-9 mt-4">
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non accusamus praesentium tenetur vero aspernatur veniam, fugiat, reiciendis aperiam sunt corporis quod dolorum magnam blanditiis rerum quas hic, magni assumenda expedita similique atque deleniti rem, impedit neque unde sit. Porro inventore fuga necessitatibus, labore incidunt mollitia sint voluptatem odio temporibus reiciendis.</p>
+			</div>
+
+	    </div>
 	</div>
 
 
