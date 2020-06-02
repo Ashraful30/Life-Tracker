@@ -118,20 +118,20 @@
                     </div>
 				</form>
 
-				<div id="update_success">
+				<div id="message">
 														
 						
 				</div>
 
 				<div class="justify-content-center">
-					<div class="">
-						<div class="card-body">
-							<div class="row" id="table">
-						
+					
+					<div class="card-body">
+						<div class="row table-responsive" id="table">
+					
 
-							</div>
 						</div>
 					</div>
+	
 				</div>
 	    	</div>
 
@@ -204,6 +204,38 @@
 
 				</div>
 				
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- Delete Modal -->
+
+	<div class="modal fade" id="del_income" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+		aria-hidden="true">	
+		<div class="modal-dialog" role="document">
+			<div class="modal-content" >
+				<div class="modal-header" style="border: none;">
+					<div class="container">
+						<div class="row">
+							<h5 class="modal-title">Delete Income <i class="far fa-trash-alt"></i></h5>
+							<button type="button" class="close pb-4" data-dismiss="modal" >
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body mx-3">
+					<p><i class="fas fa-trash"></i> Are you sure you want to delete?</p>
+					
+					<div class="modal-footer pt-4" style="border-top: none">
+				        
+			        	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			        	<button type="submit" id="DelIncome" name="delete" class="btn btn-danger">Delete</button>
+				       
+			      </div>
+				</div>	
 			</div>
 		</div>
 	</div>

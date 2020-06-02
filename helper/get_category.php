@@ -37,7 +37,7 @@
 	
 	<div class="col-sm-12 mt-4">
 		
-		<div class="card" style="width: 100%">
+		<div style="width: 100%">
 
 			<div class="card-body">
 

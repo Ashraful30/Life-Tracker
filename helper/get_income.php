@@ -39,7 +39,7 @@
 							<td>'.$row['date'].'</td>
 							<td>'.$category.'</td>
 							<td><button type="button" class="btn btn-primary" id="edit_income" data-id='.$row['id'].'><i class="fas fa-edit"></i> Edit</button>
-							<button type="button" class="btn btn-danger" id="delete_income" data-id='.$row['id'].'><i class="far fa-trash-alt"></i> Delete</button></td>
+							<button type="button" class="btn btn-danger" id="delete_income" parent-id='.$id.' data-id='.$row['id'].'><i class="far fa-trash-alt"></i> Delete</button></td>
 						</tr>';
 			}
 			$value.='</tbody></table>';
@@ -120,10 +120,27 @@
 		$res=mysqli_query($conn,$sql);
 
 		if ($res) {
-			echo "Income Updated successfully";
+			echo "Income updated successfully";
 		}
 		else{
 			echo "Failed to update";	
+		}
+	}
+
+	if(isset($_POST["delID"])){
+
+		$id=$_POST["delID"];
+		
+		$sql="DELETE FROM event WHERE id='$id'";
+			
+		
+		$res=mysqli_query($conn,$sql);
+
+		if ($res) {
+			echo "Income deleted successfully";
+		}
+		else{
+			echo "Failed to delete";	
 		}
 	}	
 

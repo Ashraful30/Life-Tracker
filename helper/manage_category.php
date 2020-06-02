@@ -166,7 +166,7 @@
 							}
 						?>					
 					</div>
-					<div class="row" id="txtHint">
+					<div class="row table-responsive" id="txtHint">
 						<!-- Customer info will be listed here... -->
 
 					</div>
