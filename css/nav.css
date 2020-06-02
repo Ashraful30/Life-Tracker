@@ -1,0 +1,21 @@
+
+
+.idiv{
+    background: #512DDC !important;
+    width: 50px;
+}
+.idiv a{
+    color: #fff;
+}
+.idiv a:hover{
+    background: #512DC1;
+    color: #e1e1dd;
+}   
+
+.my-style{
+	color: #fff !important;
+}
+
+.my-style:hover{
+	color: #C8C8C8 !important;
+}

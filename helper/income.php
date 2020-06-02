@@ -52,7 +52,7 @@
 <body>
 
 	
-	<?php include 'helper/header.php'; ?>
+	<?php include 'helper/nav.php'; ?>
 
 
 	<div class="container-fluid" >		

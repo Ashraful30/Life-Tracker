@@ -3,35 +3,7 @@
 
 
 	session_start();
-	include '../helper/db_connect.php';
-
-	$error="";
-	$msg="";
-
-	if (isset($_GET)) {
-  		$id=$_GET['id'];
-  		$name=$_GET['category_name'];
-  		$description=$_GET['category_description'];
-  		$pid=$_GET['parent_id'];
-  		$parent;
-
-  		if ($pid!="NULL") {
-
-  			$sql="SELECT category_name FROM category WHERE id='$pid'";
-	  		$result = mysqli_query($conn, $sql);
-
-			if (mysqli_num_rows($result)>0) {
-
-				$row=mysqli_fetch_assoc($result);
-				$parent=$row['category_name'];
-			}
-  		}
-  		else{
-  			$parent="Parent";
-  		}
-  	}
-
-
+	include 'db_connect.php';
 
 	if(isset($_POST["logout"])){
 
@@ -40,47 +12,33 @@
 		header("location:../index.php");
 	}
 
-	if(isset($_POST["update_category"])){
+	$error="";
+	$msg="";
+	if(isset($_POST["add_category"])){
 
-		$id=$_POST["id"];
 		$cat_name=$_POST["category_name"];
 		$description=$_POST["description"];
 		$parent_id=$_POST["parent_id"];
 
-		 //echo "Parent Id is ".$parent_id;
+		// echo $cat_name." ".$description." ".$parent_id;
 
 		if ($_POST["parent_id"]=='NULL') {
-			
-			$sql="UPDATE category SET category_name='$cat_name' , category_description='$description' , parent_id=NULL WHERE id='$id'";
-			//echo "string";
+			$sql="insert into category(category_name,category_description) values('$cat_name','$description')";
 
 		}
 		else{
-			$sql="UPDATE category SET category_name='$cat_name' , category_description='$description' , parent_id='$parent_id' WHERE id='$id'";
+			$sql="insert into category(category_name,category_description,parent_id) values('$cat_name','$description','$parent_id')";
 			
 		}
 
 		$res=mysqli_query($conn,$sql);
 
 		if ($res) {
-			$msg="Category Updated successfully";
+			$msg="Category inserted successfully";
 		}
 		else{
 			$error="Error in insertion";	
 		}
-		if ($parent_id!='NULL') {
-
-			$sql="SELECT category_name from category where id='$parent_id' limit 1";
-			$result = mysqli_query($conn, $sql);
-			if (mysqli_num_rows($result)>0) {
-
-				$row=mysqli_fetch_assoc($result);
-				$cat_name=$row["category_name"];
-				//echo ' inside '.$cat_name;
-			}
-		}
-		//echo ' Outside '.$cat_name;
-		header("location:../admin/manage_category.php?editedParent=".$parent_id."&editedName=".$cat_name."&editedMsg=".$msg."&edittedError=".$error.".php");
 	}
 
 ?>
@@ -97,39 +55,19 @@
 	<link rel="stylesheet" href="../css/index.css">
 	<link rel="stylesheet" href="../css/admin.css">
 	<link rel="stylesheet" href="../css/fontawesome/css/all.css">
-	<title>Edit Category</title>
+	<link rel="stylesheet" href="../css/nav.css">
+	<link rel="icon" type="image/gif/png" href="../img/symbol.png">
+	<title>Add Category</title>
 
-	<style>
-		
-	</style>
+	<style> #cactive{color: #C8C8C8 !important;} </style>
 
 
 </head>
 
-<body onload=>
+<body>
 
-	<nav class="navbar navbar-dark navbar-expand-sm fixed-top">
-		<div class="container">
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<a class="navbar-brand " href="home.php"><img src="../img/logo.png" height="30" width="41" alt="Logo"></a>
-			<div class="collapse navbar-collapse" id="navbar">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item"><a id="hactive" class="nav-link" href="../home.php"><i class="fa fa-home"></i> Home</a></li>
-					<li class="nav-item" ><a class="nav-link" id="mactive" href="admin.php"><i class="fas fa-user"></i> Admin</a></li>
-					<li class="nav-item"><a id="eactive" class="nav-link" href="../earning.php"><i class="fas fa-hand-holding-usd"></i></i> Earning</a></li>
-					<li class="nav-item" id="cactive"><a class="nav-link" href="contact.html"><i class="fa fa-address-card"></i> Contact</a></li>
-				</ul>
-				<ul class="navbar-nav demo">
-					<li class="nav-item demo">
-						<a href="" class="btn login" data-toggle="modal" data-target="#modalLoginForm"><i class="fas fa-sign-out-alt"></i> Logout</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
 
+	<?php include 'nav.php'; ?>
 
 	<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 	aria-hidden="true">
@@ -162,26 +100,15 @@
 
 
 	<div class="container-fluid" >		
-		<div class="row">
+		<div class="row row-content">
 
-			<div class="col-sm-3" style="min-height: 650px;background: lightgrey">				
-				
-				<div class="row">
-					<a class="list-unstyled pt-2" href="add_category.php" style="text-decoration:none;width: 100%;"><button type="button" class="btn login btn-block">Add Category</button></a>		
-				</div>
-				<div class="row">
-					<a class="list-unstyled" href="manage_category.php" style="text-decoration:none;width: 100%;"><button type="button" class="btn login btn-block">Manage Category</button></a>		
-				</div>
-
-			</div>
-
-			<div class="col-sm-9 mt-4">
+			<div class="offset-sm-2 col-sm-8 mt-4">
 				
 				
-				<div class="row row-content justify-content-center">
+				<div class="row justify-content-center">
 					
-					<div class="card" style="min-width: 70%">
-						<h3 class="card-header bg-primary text-white text-center">Update Category</h3>
+					<div class="card" style="width: 80%">
+						<h3 class="card-header bg-primary text-white text-center">Add Category</h3>
 						<div class="card-body">
 							
 			                <form action="" method="post">
@@ -198,18 +125,18 @@
 									?>
 
 								</div>	
-								<input type="hidden" name="id" value="<?php echo $id ?>">
+
 			                    <div class="form-group row">
 			                        <label for="firstname" class="col-sm-4 col-from-label">Category Name</label>
 			                        <div class="col-sm-8">
-			                            <input type="text" class="form-control" name="category_name" id="fisrtname" placeholder="Category Name" required value="<?php echo $name ?>">
+			                            <input type="text" class="form-control" name="category_name" id="fisrtname" placeholder="Category Name" required>
 			                        </div>
 			                    </div>
 
 			                    <div class="form-group row">
 			                        <label for="description" class="col-sm-4 col-from-label">Category Description</label>
 			                        <div class="col-sm-8">
-			                            <textarea class="form-control" name="description" rows="5" placeholder="Category Description" required ><?php echo $description; ?></textarea>
+			                            <textarea class="form-control" name="description" id="feedback" rows="5" placeholder="Category Description" required></textarea>
 			                        </div>
 			                    </div>
       
@@ -217,7 +144,7 @@
 			                        <label for="description" class="col-sm-4 col-from-label">Parent Category</label>
 			                        <div class="col-sm-8">
 										<select class="form-control" name="parent_id">
-											<option value="NULL" <?php if ($parent=="Parent") {echo "selected";} ?> >Parent</option>
+											<option value="NULL">Parent</option>
 										<?php 
 
 											$sql="Select id,category_name from category where parent_id is null order by category_name asc";
@@ -227,7 +154,7 @@
 											if (mysqli_num_rows($result)>0) {
 
 												while($row=mysqli_fetch_assoc($result)){
-													echo '<option value="'.$row['id'].'"';?> <?php if ($parent==$row['category_name']) {echo "selected";}; echo '>'.$row['category_name'].'</option>';
+													echo '<option value="'.$row['id'].'">'.$row['category_name'].'</option>';
 												}
 											}
 											elseif (mysqli_num_rows($result)==0) {
@@ -245,9 +172,11 @@
 
 			                    <div class="form-group row">
 			                        <div class="offset-sm-4 col-sm-8">
-			                            <button type="submit" name="update_category" class="btn btn-primary">Update Category</button>
+			                            <button type="submit" name="add_category" class="btn btn-primary">Add Category</button>
 			                        </div>
 			                    </div>
+
+
 			                </form>
 
 						</div>
@@ -275,10 +204,6 @@
 	<script src="../js/jquery.min.js"></script>
 	<script src="../js/popper.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
-
-	<script>
-		
-	</script>
 
 
 </body>

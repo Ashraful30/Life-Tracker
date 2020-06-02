@@ -6,33 +6,20 @@
 .row-content{
     margin: 0px auto;
     padding: 50px 0px 50px 0px;
-    border-bottom: 1px ridge;
-    min-height: 400px;
+    min-height: 500px;
 }
 
 .footer{
-    background-color: #D1C4E9;
+    background-color: #512DA8;
     margin: 0px auto;
     padding: 20px 0px 20px;
-}
-
-.jumbotron{
-    padding: 70px 30px;
-    margin: 0px auto;
-    background: #9575CD;
-    color: floralwhite;
-}
-
-.address{
-    font-size: 80%;
-    margin: 0px;
-    color: #0f0f0f;
+    color: #fff;
 }
 
 body{
     padding: 50px 0px 0px 0px;
     z-index: 0;
-    min-height: 780px;
+    /*min-height: 780px;*/
 }
 
 .navbar-dark{
@@ -49,6 +36,6 @@ body{
     color: white;
 }
 
-.w100{
-    width: 100%;
+.thover:hover {
+    background: #D2D2D2 !important;
 }

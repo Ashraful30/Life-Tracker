@@ -47,42 +47,18 @@
 	<link rel="stylesheet" href="../css/index.css">
 	<link rel="stylesheet" href="../css/admin.css">
 	<link rel="stylesheet" href="../css/fontawesome/css/all.css">
+	<link rel="stylesheet" href="../css/nav.css">
 	<link rel="icon" type="image/gif/png" href="../img/symbol.png">
 	<title>Add Income</title>
 
-	<style>
-		#iactive{
-			color: white;
-		}
-	</style>
+	<style> #iactive{color: #C8C8C8 !important;} </style>
 
 
 </head>
 
 <body>
 
-	<nav class="navbar navbar-dark navbar-expand-sm fixed-top">
-		<div class="container">
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<a class="navbar-brand " href="../home.php"><img src="../img/symbol.png" height="32" width="32" alt="Logo" style="margin-right: -10px;"></a>
-			<div class="collapse navbar-collapse" id="navbar">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item"><a id="hactive" class="nav-link" href="../home.php"><i class="fa fa-home"></i> Home</a></li>
-					<li class="nav-item" ><a class="nav-link" id="mactive" href="../admin/admin.php"><i class="fas fa-user"></i> Admin</a></li>
-					<li class="nav-item"><a id="iactive" class="nav-link" href="../income.php"><i class="fas fa-hand-holding-usd"></i> Income</a></li>
-					<li class="nav-item" id="eactive"><a class="nav-link" href="../expense.php"><i class="fas fa-donate"></i> Expense</a></li>
-					<li class="nav-item" id="lactive"><a class="nav-link" href="../life_event.php"><i class="fas fa-calendar-check"></i> Life Event</a></li>
-				</ul>
-				<ul class="navbar-nav demo">
-					<li class="nav-item demo">
-						<a href="" class="btn login" data-toggle="modal" data-target="#modalLoginForm"><i class="fas fa-sign-out-alt"></i> Logout</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+	<?php include 'nav.php'; ?>
 
 
 	<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -115,26 +91,15 @@
 	</div>
 
 
-	<div class="container-fluid" >		
-		<div class="row">
+	<div class="container-fluid" >
 
-			<div class="col-sm-3" style="min-height: 650px;background: lightgrey">				
-				
-				<div class="row">
-					<a class="list-unstyled pt-2" href="add_income.php" style="text-decoration:none;width: 100%;"><button type="button" class="btn login btn-block">Add Income</button></a>		
-				</div>
-				<div class="row">
-					<a class="list-unstyled" href="manage_income.php" style="text-decoration:none;width: 100%;"><button type="button" class="btn login btn-block">Manage Income</button></a>		
-				</div>
+		<div class="row row-content">
 
-			</div>
+			<div class="offset-sm-2 col-sm-8 mt-2">
 
-			<div class="col-sm-9 mt-4">
-				
-				
-				<div class="row row-content justify-content-center">
+				<div class="row justify-content-center">
 					
-					<div class="card" style="min-width: 70%">
+					<div class="card" style="min-width: 80%">
 						<h3 class="card-header bg-primary text-white text-center">Add Income</h3>
 						<div class="card-body">
 							
