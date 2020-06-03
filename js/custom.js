@@ -16,6 +16,13 @@ $(document).ready(function(){
 	update_expense();
 	delete_expense();
 
+/***  Life Event Functions ****/
+	
+	view_life_event();
+	edit_life_event();
+	update_life_event();
+	delete_life_event();
+
 })
 
 
@@ -392,6 +399,201 @@ function delete_expense(){
 
 				
 				if (data == 'Expense deleted successfully') {
+
+					$('#message').html('<div class="alert alert-success alert-dismissible fade show" role="alert" style="width: 100%;margin-bottom: 0px;"><p class="text-center">'+data+'</p><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+				} 
+				else {
+
+					$('#message').html('<div class="alert alert-danger alert-dismissible fade show" role="alert" style="width: 100%;margin-bottom: 0px;"><p class="text-center">'+data+'</p><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+				}
+			}
+		})		
+	})
+}
+
+
+
+
+/****  End of Expense Functions *******/
+
+
+
+/****  Start of Life Event Functions  *******/
+
+
+function view_life_event(){
+
+	$('#view_life_event').on('change', function() {
+
+		var parent_id = this.value;
+		
+		$.ajax({
+
+			url: 'get_life_event.php',
+			method: 'post',
+			data: {pID:parent_id},
+			success: function(data){
+				
+				data = $.parseJSON(data);
+				if (data.status=='success') {
+
+					$('#table').html(data.html);
+				}
+			}
+		})
+	});    
+}
+
+
+
+
+function onload_view_life_event(){
+
+	var parent_id = $("#view_life_event").val();
+
+	$.ajax({
+
+		url: 'get_life_event.php',
+		method: 'post',
+		data: {pID:parent_id},
+		success: function(data){
+			
+			data = $.parseJSON(data);
+			if (data.status=='success') {
+
+				$('#table').html(data.html);
+			}
+		}
+	})
+}
+
+
+function edit_life_event(){
+
+	$(document).on('click','#edit_life_event',function(){
+
+		var id=$(this).attr('data-id');
+
+		$.ajax({
+
+			url: 'get_life_event.php',
+			method: 'post',
+			data: {editID:id},
+			dataType: 'JSON',
+			success: function(data){
+
+				$('#editID').val(data['info']['id']);
+				$('#editTitle').val(data['info']['title']);
+				$('#editDescription').val(data['info']['description']);
+				$('#editDate').val(data['info']['date']);
+				
+				$('#createOption').empty().append('');
+				var mySelect = $('#createOption');
+				var i;
+				for (i = 0; i < data['category'].length; i++) {
+					
+					mySelect.append(
+				        $('<option></option>').val(data['category'][i]['id']).html(data['category'][i]['category_name'])
+				    );
+				} 
+				$('#createOption').val(data['info']['parent_id']);
+				$('#update_life_event').modal('show');			
+			}			
+		})
+	})
+}
+
+
+function update_life_event(){
+
+	$(document).on('click','#modify_life_event',function(){
+
+		var id=$("#editID").val();
+		var title=$("#editTitle").val();
+		var description=$("#editDescription").val();
+		var date=$("#editDate").val();
+		var parent_id=$("#createOption").val();
+
+		$.ajax({
+
+			url: 'get_life_event.php',
+			method: 'post',
+			data: {update_id:id,update_title:title,update_description:description,update_date:date,update_parent_id:parent_id},
+			success: function(data){
+				
+				$('#update_life_event').modal('toggle');
+
+				$.ajax({
+
+					url: 'get_life_event.php',
+					method: 'post',
+					data: {pID:parent_id},
+					success: function(data){
+						
+						data = $.parseJSON(data);
+						if (data.status=='success') {
+
+							$('#table').html(data.html);
+						}
+					}					
+				})
+
+				if (data == 'Life Event updated successfully') {
+
+					$('#message').html('<div class="alert alert-success alert-dismissible fade show" role="alert" style="width: 100%;margin-bottom: 0px;"><p class="text-center">'+data+'</p><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+				} 
+				else {
+
+					$('#message').html('<div class="alert alert-danger alert-dismissible fade show" role="alert" style="width: 100%;margin-bottom: 0px;"><p class="text-center">'+data+'</p><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+				}
+			}			
+		})
+	})
+}
+
+
+
+function delete_life_event(){
+
+	var id;
+	var parent_id;
+
+	$(document).on('click','#delete_life_event',function(){
+
+		id=$(this).attr('data-id');
+		parent_id=$(this).attr('parent-id');
+		$('#del_life_event').modal('show');
+				
+	})
+
+	$(document).on('click','#DelLifeEvent',function(){
+		
+		$.ajax({
+
+			url: 'get_life_event.php',
+			method: 'post',
+			data: {delID:id},
+			success: function(data){
+
+				$('#del_life_event').modal('toggle');
+
+				$.ajax({
+
+					url: 'get_life_event.php',
+					method: 'post',
+					data: {pID:parent_id},
+					success: function(data){
+						
+						data = $.parseJSON(data);
+						if (data.status=='success') {
+
+							$('#table').html(data.html);
+						}
+					}
+				})
+
+				
+				if (data == 'Life Event deleted successfully') {
 
 					$('#message').html('<div class="alert alert-success alert-dismissible fade show" role="alert" style="width: 100%;margin-bottom: 0px;"><p class="text-center">'+data+'</p><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 				} 

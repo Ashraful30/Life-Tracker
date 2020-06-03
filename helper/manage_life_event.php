@@ -38,7 +38,7 @@
 
 </head>
 
-<body onload="onload_view();">
+<body onload="onload_view_life_event();">
 
 	<?php include 'nav.php'; ?>
 
@@ -82,13 +82,13 @@
 				<form action="" method="post">
 					
                  	<div class="form-group row">
-                        <label for="description" class="offset-sm-1 col-sm-5 col-from-label text-center" ><h6>Which income you want to manage?</h6></label>
+                        <label for="description" class="offset-sm-1 col-sm-5 col-from-label text-center" ><h6>Which life event you want to manage?</h6></label>
                         <div class="col-sm-4 w100">
-							<select class="form-control" name="parent_id" id="view">
+							<select class="form-control" name="parent_id" id="view_life_event">
 								
 								<?php 
 
-									$sql="SELECT id,category_name FROM category WHERE parent_id = (SELECT DISTINCT id FROM category WHERE category_name='Income')";
+									$sql="SELECT id,category_name FROM category WHERE parent_id = (SELECT DISTINCT id FROM category WHERE category_name='Life Event')";
 									$result = mysqli_query($conn, $sql);
 									$id=[];
 									$category_name=[];
@@ -141,14 +141,14 @@
 
 <!------ Edit Modal ----------->
 
-	<div class="modal fade" id="update_income" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+	<div class="modal fade" id="update_life_event" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 	aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content" >
 				<div class="modal-header" style="border: none;">
 					<div class="container">
 						<div class="row com-sm-12">
-							<h5 class="modal-titles"><i class="far fa-edit"></i> Update Income</h5>
+							<h5 class="modal-titles"><i class="far fa-edit"></i> Update Life Event</h5>
 							<button type="button" class="close pb-4" data-dismiss="modal" >
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -159,23 +159,16 @@
 					
 					<input type="hidden" class="form-control" name="title" id="editID">
 					<div class="form-group row">
-                        <label for="firstname" class="col-sm-4 col-from-label">Income Title</label>
+                        <label for="firstname" class="col-sm-4 col-from-label">Life Event Title</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="title" id="editTitle" placeholder="Income Title" required>
+                            <input type="text" class="form-control" name="title" id="editTitle" placeholder="Life Event Title" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="firstname" class="col-sm-4 col-from-label">Amount</label>
+                        <label for="description" class="col-sm-4 col-from-label">Life Event Description</label>
                         <div class="col-sm-8">
-                            <input type="number" min=0 class="form-control" name="amount" id="editAmount" placeholder="Amount" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="description" class="col-sm-4 col-from-label">Income Description</label>
-                        <div class="col-sm-8">
-                            <textarea class="form-control" name="description" id="editDescription" rows="5" placeholder="Income Description" required></textarea>
+                            <textarea class="form-control" name="description" id="editDescription" rows="5" placeholder="Life Event Description" required></textarea>
                         </div>
                     </div>
 
@@ -187,7 +180,7 @@
                     </div>
 
                  	<div class="form-group row">
-                        <label for="description" class="col-sm-4 col-from-label">Income Category</label>
+                        <label for="description" class="col-sm-4 col-from-label">Life Event Category</label>
                         <div class="col-sm-8">
 							<select class="form-control" name="parent_id" id="createOption" required>
 
@@ -199,7 +192,7 @@
 					<div class="modal-footer pt-4" style="border-top: none">
 			        	<button type="button" class="btn btn-secondary" id="btn_close" data-dismiss="modal">Close</button>
 			        	<!-- <button type="submit" name="add" id="add_user" class="btn btn-primary">Add User</button> -->
-			        	<button type="button" name="add" id="modify_income" class="btn btn-primary">Update Income</button>
+			        	<button type="button" name="add" id="modify_life_event" class="btn btn-primary">Update Life Event</button>
 			        </div>
 
 				</div>
@@ -212,14 +205,14 @@
 
 	<!-- Delete Modal -->
 
-	<div class="modal fade" id="del_income" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+	<div class="modal fade" id="del_life_event" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 		aria-hidden="true">	
 		<div class="modal-dialog" role="document">
 			<div class="modal-content" >
 				<div class="modal-header" style="border: none;">
 					<div class="container">
 						<div class="row">
-							<h5 class="modal-title">Delete Income <i class="far fa-trash-alt"></i></h5>
+							<h5 class="modal-title">Delete Life Event <i class="far fa-trash-alt"></i></h5>
 							<button type="button" class="close pb-4" data-dismiss="modal" >
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -232,7 +225,7 @@
 					<div class="modal-footer pt-4" style="border-top: none">
 				        
 			        	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			        	<button type="submit" id="DelIncome" name="delete" class="btn btn-danger">Delete</button>
+			        	<button type="submit" id="DelLifeEvent" name="delete" class="btn btn-danger">Delete</button>
 				       
 			      </div>
 				</div>	

@@ -14,22 +14,21 @@
 
 	$error="";
 	$msg="";
-	if(isset($_POST["add_income"])){
+	if(isset($_POST["add_life_event"])){
 
 		$title=$_POST["title"];
-		$amount=$_POST["amount"];
 		$date=$_POST["date"];
 		$description=$_POST["description"];
 		$parent_id=$_POST["parent_id"];
-		$sql="insert into event(title,description,amount,parent_id,date) values('$title','$description','$amount','$parent_id','$date')";
+		$sql="insert into event(title,description,parent_id,date) values('$title','$description','$parent_id','$date')";
 
 		$res=mysqli_query($conn,$sql);
 
 		if ($res) {
-			$msg="Income added successfully";
+			$msg="Life Event added successfully";
 		}
 		else{
-			$error="Failed to add income";	
+			$error="Failed to add life event";	
 		}
 	}
 
@@ -100,7 +99,7 @@
 				<div class="row justify-content-center">
 					
 					<div class="card" style="min-width: 80%">
-						<h3 class="card-header bg-primary text-white text-center">Add Income</h3>
+						<h3 class="card-header bg-primary text-white text-center">Add Life Event</h3>
 						<div class="card-body">
 							
 			                <form action="" method="post">
@@ -119,23 +118,16 @@
 								</div>	
 
 			                    <div class="form-group row">
-			                        <label for="firstname" class="col-sm-4 col-from-label">Income Title</label>
+			                        <label for="firstname" class="col-sm-4 col-from-label">Life Event Title</label>
 			                        <div class="col-sm-8">
-			                            <input type="text" class="form-control" name="title" id="fisrtname" placeholder="Income Title" required>
+			                            <input type="text" class="form-control" name="title" id="fisrtname" placeholder="Life Event Title" required>
 			                        </div>
 			                    </div>
 
 			                    <div class="form-group row">
-			                        <label for="firstname" class="col-sm-4 col-from-label">Amount</label>
+			                        <label for="description" class="col-sm-4 col-from-label">Life Event Description</label>
 			                        <div class="col-sm-8">
-			                            <input type="number" min=0 class="form-control" name="amount" id="fisrtname" placeholder="Amount" required>
-			                        </div>
-			                    </div>
-
-			                    <div class="form-group row">
-			                        <label for="description" class="col-sm-4 col-from-label">Income Description</label>
-			                        <div class="col-sm-8">
-			                            <textarea class="form-control" name="description" id="feedback" rows="5" placeholder="Income Description" required></textarea>
+			                            <textarea class="form-control" name="description" id="feedback" rows="5" placeholder="Life Event Description" required></textarea>
 			                        </div>
 			                    </div>
 
@@ -147,12 +139,12 @@
 			                    </div>
       
 			                 	<div class="form-group row">
-			                        <label for="description" class="col-sm-4 col-from-label">Income Category</label>
+			                        <label for="description" class="col-sm-4 col-from-label">Life Event Category</label>
 			                        <div class="col-sm-8">
 										<select class="form-control" name="parent_id" required>
 										<?php 
 
-											$sql="SELECT id,category_name FROM category WHERE parent_id = (SELECT DISTINCT id FROM category WHERE category_name='Income')";
+											$sql="SELECT id,category_name FROM category WHERE parent_id = (SELECT DISTINCT id FROM category WHERE category_name='Life Event')";
 											$result = mysqli_query($conn, $sql);
 											$id=[];
 											$category_name=[];
@@ -177,7 +169,7 @@
 
 			                    <div class="form-group row">
 			                        <div class="offset-sm-4 col-sm-8">
-			                            <button type="submit" name="add_income" class="btn btn-primary">Add Income</button>
+			                            <button type="submit" name="add_life_event" class="btn btn-primary">Add Life Event</button>
 			                        </div>
 			                    </div>
 

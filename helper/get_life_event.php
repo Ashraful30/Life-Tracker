@@ -13,7 +13,6 @@
 						<tr>
 							<th>Title</th>
 							<th>Description</th>
-							<th>Amount</th>
 							<th>Date</th>
 							<th>Category</th>
 							<th>Action</th>
@@ -35,11 +34,10 @@
 				$value.='<tr class="thover">
 							<td>'.$row['title'].'</td>
 							<td>'.$row['description'].'</td>
-							<td>'.$row['amount'].'</td>
 							<td>'.$row['date'].'</td>
 							<td>'.$category.'</td>
-							<td><button type="button" class="btn btn-primary" id="edit_income" data-id='.$row['id'].'><i class="fas fa-edit"></i> Edit</button>
-							<button type="button" class="btn btn-danger" id="delete_income" parent-id='.$id.' data-id='.$row['id'].'><i class="far fa-trash-alt"></i> Delete</button></td>
+							<td><button type="button" class="btn btn-primary" id="edit_life_event" data-id='.$row['id'].'><i class="fas fa-edit"></i> Edit</button>
+							<button type="button" class="btn btn-danger" id="delete_life_event" parent-id='.$id.' data-id='.$row['id'].'><i class="far fa-trash-alt"></i> Delete</button></td>
 						</tr>';
 			}
 			$value.='</tbody></table>';
@@ -66,7 +64,6 @@
 				$user_data['id']=$row['id'];
 				$user_data['title']=$row['title'];
 				$user_data['description']=$row['description'];
-				$user_data['amount']=$row['amount'];
 				$user_data['date']=$row['date'];
 				$user_data['parent_id']=$row['parent_id'];
 			}
@@ -108,22 +105,21 @@
 
 		$id=$_POST["update_id"];
 		$title=$_POST["update_title"];
-		$amount=$_POST["update_amount"];
 		$date=$_POST["update_date"];
 		$description=$_POST["update_description"];
 		$parent_id=$_POST["update_parent_id"];
 
 		
-		$sql="UPDATE event SET title='$title', description='$description', amount='$amount', parent_id='$parent_id', date='$date' WHERE id='$id'";
+		$sql="UPDATE event SET title='$title', description='$description', parent_id='$parent_id', date='$date' WHERE id='$id'";
 			
 		
 		$res=mysqli_query($conn,$sql);
 
 		if ($res) {
-			echo "Income updated successfully";
+			echo "Life Event updated successfully";
 		}
 		else{
-			echo "Failed to update";	
+			echo "Failed to update life event";	
 		}
 	}
 
@@ -137,7 +133,7 @@
 		$res=mysqli_query($conn,$sql);
 
 		if ($res) {
-			echo "Income deleted successfully";
+			echo "Life Event deleted successfully";
 		}
 		else{
 			echo "Failed to delete";	
