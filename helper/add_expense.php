@@ -14,7 +14,7 @@
 
 	$error="";
 	$msg="";
-	if(isset($_POST["add_income"])){
+	if(isset($_POST["add_expense"])){
 
 		$title=$_POST["title"];
 		$amount=$_POST["amount"];
@@ -26,10 +26,10 @@
 		$res=mysqli_query($conn,$sql);
 
 		if ($res) {
-			$msg="Income added successfully";
+			$msg="Expense added successfully";
 		}
 		else{
-			$error="Failed to add income";	
+			$error="Failed to add expense";	
 		}
 	}
 
@@ -100,7 +100,7 @@
 				<div class="row justify-content-center">
 					
 					<div class="card" style="min-width: 80%">
-						<h3 class="card-header bg-primary text-white text-center">Add Income</h3>
+						<h3 class="card-header bg-primary text-white text-center">Add Expense</h3>
 						<div class="card-body">
 							
 			                <form action="" method="post">
@@ -119,9 +119,9 @@
 								</div>	
 
 			                    <div class="form-group row">
-			                        <label for="firstname" class="col-sm-4 col-from-label">Income Title</label>
+			                        <label for="firstname" class="col-sm-4 col-from-label">Expense Title</label>
 			                        <div class="col-sm-8">
-			                            <input type="text" class="form-control" name="title" id="fisrtname" placeholder="Income Title" required>
+			                            <input type="text" class="form-control" name="title" id="fisrtname" placeholder="Expense Title" required>
 			                        </div>
 			                    </div>
 
@@ -133,9 +133,9 @@
 			                    </div>
 
 			                    <div class="form-group row">
-			                        <label for="description" class="col-sm-4 col-from-label">Income Description</label>
+			                        <label for="description" class="col-sm-4 col-from-label">Expense Description</label>
 			                        <div class="col-sm-8">
-			                            <textarea class="form-control" name="description" id="feedback" rows="5" placeholder="Income Description" required></textarea>
+			                            <textarea class="form-control" name="description" id="feedback" rows="5" placeholder="Expense Description" required></textarea>
 			                        </div>
 			                    </div>
 
@@ -147,12 +147,12 @@
 			                    </div>
       
 			                 	<div class="form-group row">
-			                        <label for="description" class="col-sm-4 col-from-label">Income Category</label>
+			                        <label for="description" class="col-sm-4 col-from-label">Expense Category</label>
 			                        <div class="col-sm-8">
 										<select class="form-control" name="parent_id" required>
 										<?php 
 
-											$sql="SELECT id,category_name FROM category WHERE parent_id = (SELECT DISTINCT id FROM category WHERE category_name='Income')";
+											$sql="SELECT id,category_name FROM category WHERE parent_id = (SELECT DISTINCT id FROM category WHERE category_name='Expense')";
 											$result = mysqli_query($conn, $sql);
 											$id=[];
 											$category_name=[];
@@ -177,7 +177,7 @@
 
 			                    <div class="form-group row">
 			                        <div class="offset-sm-4 col-sm-8">
-			                            <button type="submit" name="add_income" class="btn btn-primary">Add Income</button>
+			                            <button type="submit" name="add_expense" class="btn btn-primary">Add Expense</button>
 			                        </div>
 			                    </div>
 

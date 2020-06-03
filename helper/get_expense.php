@@ -38,8 +38,8 @@
 							<td>'.$row['amount'].'</td>
 							<td>'.$row['date'].'</td>
 							<td>'.$category.'</td>
-							<td><button type="button" class="btn btn-primary" id="edit_income" data-id='.$row['id'].'><i class="fas fa-edit"></i> Edit</button>
-							<button type="button" class="btn btn-danger" id="delete_income" parent-id='.$id.' data-id='.$row['id'].'><i class="far fa-trash-alt"></i> Delete</button></td>
+							<td><button type="button" class="btn btn-primary" id="edit_expense" data-id='.$row['id'].'><i class="fas fa-edit"></i> Edit</button>
+							<button type="button" class="btn btn-danger" id="delete_expense" parent-id='.$id.' data-id='.$row['id'].'><i class="far fa-trash-alt"></i> Delete</button></td>
 						</tr>';
 			}
 			$value.='</tbody></table>';
@@ -120,10 +120,10 @@
 		$res=mysqli_query($conn,$sql);
 
 		if ($res) {
-			echo "Income updated successfully";
+			echo "Expense updated successfully";
 		}
 		else{
-			echo "Failed to update";	
+			echo "Failed to update expense";	
 		}
 	}
 
@@ -137,10 +137,10 @@
 		$res=mysqli_query($conn,$sql);
 
 		if ($res) {
-			echo "Income deleted successfully";
+			echo "Expense deleted successfully";
 		}
 		else{
-			echo "Failed to delete";	
+			echo "Failed to delete expense";	
 		}
 	}	
 
