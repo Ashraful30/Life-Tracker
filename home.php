@@ -1,4 +1,3 @@
-
 <?php 
 
     session_start();
@@ -86,8 +85,8 @@
 						<a class="nav-link dropdown-toggle my-style" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-donate"></i> Expense</a>
 
 						<div class="dropdown-menu idiv" aria-labelledby="navbarDropdown">
-	                        <a class="dropdown-item" href="#">Add Expense</a>
-	                        <a class="dropdown-item" href="#">Manage Expense</a>
+	                        <a class="dropdown-item" href="helper/add_expense.php">Add Expense</a>
+	                        <a class="dropdown-item" href="helper/manage_expense.php">Manage Expense</a>
 	                        <a class="dropdown-item" href="#">View Expense</a>
                         </div>
 					</li>
@@ -96,8 +95,8 @@
 						<a class="nav-link dropdown-toggle my-style" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-calendar-check"></i> Life Event</a>
 
 						<div class="dropdown-menu idiv" aria-labelledby="navbarDropdown">
-	                        <a class="dropdown-item" href="#">Add Life Event</a>
-	                        <a class="dropdown-item" href="#">Manage Life Event</a>
+	                        <a class="dropdown-item" href="helper/add_life_event.php">Add Life Event</a>
+	                        <a class="dropdown-item" href="helper/manage_life_event.php">Manage Life Event</a>
 	                        <a class="dropdown-item" href="#">View Life Event</a>
                         </div>
 					</li>					

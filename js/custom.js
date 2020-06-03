@@ -1,11 +1,15 @@
 $(document).ready(function(){
 
+/***  Income Functions ****/
+
 	view_income();
 	edit_income();
 	update_income();
 	delete_income();
 })
 
+
+/***  Income Functions ****/
 
 
 function view_income(){
@@ -191,3 +195,7 @@ function delete_income(){
 		})		
 	})
 }
+
+
+
+/*** End of Income Functions ****/
