@@ -33,16 +33,19 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/bootstrap-social.css">
-	<link rel="stylesheet" href="css/index.css">
-	<link rel="stylesheet" href="css/fontawesome/css/all.css">
-	<link rel="icon" type="image/gif/png" href="img/symbol.png">
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/bootstrap-social.css">
+	<link rel="stylesheet" href="../css/index.css">
+	<link rel="stylesheet" href="../css/fontawesome/css/all.css">
+	<link rel="icon" type="image/gif/png" href="../img/symbol.png">
 	<title>Life Tracker</title>
 
 	<style>
 		#iactive{
 			color: white;
+		}
+		.pad{
+			padding: 10px 10px;
 		}
 	</style>
 
@@ -52,36 +55,57 @@
 <body>
 
 	
-	<?php include 'helper/nav.php'; ?>
+	<?php include 'nav.php'; ?>
 
 
 	<div class="container-fluid" >		
-		<div class="row">
-
-			<div class="col-sm-3" style="min-height: 650px;background: lightgrey">
-
-				<div class="row">
-					<a class="list-unstyled pt-2" href="helper/add_income.php" style="text-decoration:none;width: 100%;"><button type="button" class="btn login btn-block">Add Income</button></a>		
+		<div class="row row-content">
+			<div class="row col-12 offset-md-2 col-md-8">
+				<div class="col-xl-4 pad align-items-center mx-auto" >
+					<div class="mx-auto" style="background: #563D7C;width: 250px;height: 250px;border-radius: 125px;">
+						<p class="count text-center" style="padding-top: 40%;font-size: 30px;color: #fff;">2500000</p>
+						<p class="text-center" style="padding-top: 12%;font-size: 18px;color: #fff;">This Month</p>
+					</div>
 				</div>
-				<div class="row">
-					<a class="list-unstyled" href="helper/manage_income.php" style="text-decoration:none;width: 100%;"><button type="button" class="btn login btn-block">Manage Income</button></a>		
+				<div class="col-xl-4 pad align-items-center mx-auto" >
+					<div class="mx-auto" style="background: #563D7C;width: 250px;height: 250px;border-radius: 125px;">
+						<p class="count text-center" style="padding-top: 40%;font-size: 30px;color: #fff;">2500000</p>
+						<p class="text-center" style="padding-top: 12%;font-size: 18px;color: #fff;">This Year</p>
+					</div>
 				</div>
-
+				<div class="col-xl-4 pad align-items-center mx-auto" >
+					<div class="mx-auto" style="background: #563D7C;width: 250px;height: 250px;border-radius: 125px;">
+						<p class="count text-center" style="padding-top: 40%;font-size: 30px;color: #fff;">2500000</p>
+						<p class="text-center" style="padding-top: 12%;font-size: 18px;color: #fff;">Total</p>
+					</div>
+				</div>
 			</div>
-
-			<div class="col-sm-9 mt-4">
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non accusamus praesentium tenetur vero aspernatur veniam, fugiat, reiciendis aperiam sunt corporis quod dolorum magnam blanditiis rerum quas hic, magni assumenda expedita similique atque deleniti rem, impedit neque unde sit. Porro inventore fuga necessitatibus, labore incidunt mollitia sint voluptatem odio temporibus reiciendis.</p>
-			</div>
-
 	    </div>
 	</div>
 
 
-	<?php include 'helper/footer.php'; ?>
+	<?php include 'footer.php'; ?>
 
-	<script src="js/jquery.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/popper.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+
+	<script>
+		
+
+		$('.count').each(function () {
+		    $(this).prop('Counter',0).animate({
+		        Counter: $(this).text()
+		    }, {
+		        duration: 5000,
+		        easing: 'swing',
+		        step: function (now) {
+		            $(this).text(Math.ceil(now)+' ৳');
+		        }
+		    });
+		});
+
+	</script>
 </body>
 </html>
 

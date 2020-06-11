@@ -23,7 +23,7 @@
 						<div class="dropdown-menu idiv" aria-labelledby="navbarDropdown">
 	                        <a class="dropdown-item" href="add_income.php">Add Income</a>
 	                        <a class="dropdown-item" href="manage_income.php">Manage Income</a>
-	                        <a class="dropdown-item" href="#">View Income</a>
+	                        <a class="dropdown-item" href="income.php">View Income</a>
                         </div>
 					</li>
 

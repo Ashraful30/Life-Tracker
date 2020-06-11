@@ -77,7 +77,7 @@
 						<div class="dropdown-menu idiv" aria-labelledby="navbarDropdown">
 	                        <a class="dropdown-item" href="helper/add_income.php">Add Income</a>
 	                        <a class="dropdown-item" href="helper/manage_income.php">Manage Income</a>
-	                        <a class="dropdown-item" href="#">View Income</a>
+	                        <a class="dropdown-item" href="helper/income.php">View Income</a>
                         </div>
 					</li>
 

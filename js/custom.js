@@ -121,6 +121,8 @@ function update_income(){
 		var date=$("#editDate").val();
 		var parent_id=$("#createOption").val();
 
+		$('#view').val(parent_id);
+
 		$.ajax({
 
 			url: 'get_income.php',
@@ -140,6 +142,9 @@ function update_income(){
 						data = $.parseJSON(data);
 						if (data.status=='success') {
 
+
+							// $('#view').val(parent_id);
+							//console.log(parent_id);
 							$('#table').html(data.html);
 						}
 					}					
@@ -318,6 +323,8 @@ function update_expense(){
 		var description=$("#editDescription").val();
 		var date=$("#editDate").val();
 		var parent_id=$("#createOption").val();
+
+		$('#view_expense').val(parent_id);
 
 		$.ajax({
 
@@ -513,6 +520,8 @@ function update_life_event(){
 		var description=$("#editDescription").val();
 		var date=$("#editDate").val();
 		var parent_id=$("#createOption").val();
+
+		$('#view_life_event').val(parent_id);
 
 		$.ajax({
 
