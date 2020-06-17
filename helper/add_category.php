@@ -1,4 +1,3 @@
-
 <?php 
 
 
@@ -68,35 +67,6 @@
 
 
 	<?php include 'nav.php'; ?>
-
-	<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-	aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content" >
-				<div class="modal-header" style="border: none;">
-					<div class="container">
-						<div class="row">
-							<h5 class="modal-title">Log out <i class="fas fa-lg fa-sign-out-alt"></i></h5>
-							<button type="button" class="close pb-4" data-dismiss="modal" >
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-					</div>
-				</div>
-				<div class="modal-body mx-3">
-					<p><i class="fa fa-question-circle"></i> Are you sure you want to log-off?</p>
-
-					<div class="modal-footer pt-4" style="border-top: none">
-				        <form action="" method="post">
-				        	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				        	<button type="submit" name="logout" class="btn btn-danger">Logout</button>
-				        </form>
-			      </div>
-				</div>
-				
-			</div>
-		</div>
-	</div>
 
 
 	<div class="container-fluid" >		

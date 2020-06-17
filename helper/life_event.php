@@ -1,29 +1,13 @@
-
 <?php 
 
 	session_start();
 
+	if(isset($_POST["logout"])){
 
-	// include('db_connect.php');
-	// $log_in_error="";
-	// $email="";
-	// $password="";
-
-	// if(isset($_POST["submit"])){
-
-	// 	$email=mysqli_real_escape_string($conn,$_POST["email"]);
-	// 	$password=mysqli_real_escape_string($conn,$_POST["password"]);
-	// 	$sql="Select id from admin where admin_email='$email' and admin_password='$password'";
-	// 	$result = mysqli_query($conn, $sql);
-
-	// 	if (mysqli_num_rows($result)) {
-
-	// 		$_SESSION['login_user']=$email;
-	// 	    header('location:home.php');
-	// 	}
-	// 	else
-	// 		$log_in_error="Incorrect Email & Password";
-	// }
+		unset($_SESSION['login_user']);
+		session_destroy();
+		header("location:../index.php");
+	}
  ?>
 
 
@@ -52,7 +36,7 @@
 <body>
 
 	
-	<?php include 'helper/header.php'; ?>
+	<?php include 'nav.php'; ?>
 
 
 	<div class="container">

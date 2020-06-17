@@ -1,29 +1,13 @@
-
 <?php 
 
 	session_start();
 
+	if(isset($_POST["logout"])){
 
-	// include('db_connect.php');
-	// $log_in_error="";
-	// $email="";
-	// $password="";
-
-	// if(isset($_POST["submit"])){
-
-	// 	$email=mysqli_real_escape_string($conn,$_POST["email"]);
-	// 	$password=mysqli_real_escape_string($conn,$_POST["password"]);
-	// 	$sql="Select id from admin where admin_email='$email' and admin_password='$password'";
-	// 	$result = mysqli_query($conn, $sql);
-
-	// 	if (mysqli_num_rows($result)) {
-
-	// 		$_SESSION['login_user']=$email;
-	// 	    header('location:home.php');
-	// 	}
-	// 	else
-	// 		$log_in_error="Incorrect Email & Password";
-	// }
+		unset($_SESSION['login_user']);
+		session_destroy();
+		header("location:../index.php");
+	}
  ?>
 
 
@@ -52,35 +36,100 @@
 
 </head>
 
-<body>
+<body onload="onload_view();">
 
 	
 	<?php include 'nav.php'; ?>
 
 
-	<div class="container-fluid" >		
-		<div class="row row-content">
-			<div class="row col-12 offset-md-2 col-md-8">
-				<div class="col-xl-4 pad align-items-center mx-auto" >
-					<div class="mx-auto" style="background: #563D7C;width: 250px;height: 250px;border-radius: 125px;">
-						<p class="count text-center" style="padding-top: 40%;font-size: 30px;color: #fff;">2500000</p>
-						<p class="text-center" style="padding-top: 12%;font-size: 18px;color: #fff;">This Month</p>
+	<div class="container-fluid ">	
+		<div class="row-content">
+			<div class="row">
+				<div class="row col-12 offset-md-2 col-md-8">
+					<div class="col-xl-4 pad align-items-center mx-auto" >
+						<div class="mx-auto" style="background: #563D7C;width: 200px;height: 200px;border-radius: 100px;">
+							<p class="count1 text-center" style="padding-top: 36%;font-size: 30px;color: #fff;" id="month"></p>
+							<p class="text-center" style="padding-top: 6%;font-size: 18px;color: #fff;">This Month</p>
+						</div>
+					</div>
+					<div class="col-xl-4 pad align-items-center mx-auto" >
+						<div class="mx-auto" style="background: #563D7C;width: 200px;height: 200px;border-radius: 100px;">
+							<p class="count2 text-center" style="padding-top: 36%;font-size: 30px;color: #fff;" id="year"></p>
+							<p class="text-center" style="padding-top: 6%;font-size: 18px;color: #fff;">This Year</p>
+						</div>
+					</div>
+					<div class="col-xl-4 pad align-items-center mx-auto" >
+						<div class="mx-auto" style="background: #563D7C;width: 200px;height: 200px;border-radius: 100px;">
+							<p class="count3 text-center" style="padding-top: 36%;font-size: 30px;color: #fff;" id="total"></p>
+							<p class="text-center" style="padding-top: 6%;font-size: 18px;color: #fff;">Total</p>
+						</div>
 					</div>
 				</div>
-				<div class="col-xl-4 pad align-items-center mx-auto" >
-					<div class="mx-auto" style="background: #563D7C;width: 250px;height: 250px;border-radius: 125px;">
-						<p class="count text-center" style="padding-top: 40%;font-size: 30px;color: #fff;">2500000</p>
-						<p class="text-center" style="padding-top: 12%;font-size: 18px;color: #fff;">This Year</p>
+		    </div>
+
+			<div class="row mt-4">
+
+				<div class="col-12 offset-sm-1 col-sm-10">
+						
+					<form action="" method="post">
+						
+	                 	<div class="form-group row">
+	                        <label for="description" class="col-4 offset-sm-2 col-sm-2 col-from-label text-center" ><h5> Income </h5></label>
+	                        <div class="col-4 col-sm-3">
+								<select class="form-control" name="month" id="m">
+
+									<?php $date=date('m'); ?>
+									
+									<option value="0" >All Months</option>
+									<option value="01" <?php if($date=='01'){echo "selected='selected'";} ?>>January</option>
+									<option value="02" <?php if($date=='02'){echo "selected='selected'";} ?>>February</option>
+									<option value="03" <?php if($date=='03'){echo "selected='selected'";} ?>>March</option>
+									<option value="04" <?php if($date=='04'){echo "selected='selected'";} ?>>April</option>
+									<option value="05" <?php if($date=='05'){echo "selected='selected'";} ?>>May</option>
+									<option value="06" <?php if($date=='06'){echo "selected='selected'";} ?>>June</option>
+									<option value="07" <?php if($date=='07'){echo "selected='selected'";} ?>>July</option>
+									<option value="08" <?php if($date=='08'){echo "selected='selected'";} ?>>August</option>
+									<option value="09" <?php if($date=='09'){echo "selected='selected'";} ?>>September</option>
+									<option value="10" <?php if($date=='10'){echo "selected='selected'";} ?>>October</option>
+									<option value="11" <?php if($date=='11'){echo "selected='selected'";} ?>>November</option>
+									<option value="12" <?php if($date=='12'){echo "selected='selected'";} ?>>December</option>
+	                            </select>
+	                        </div>
+	                        <div class="col-4 col-sm-3">
+								<select class="form-control" id="y">
+									
+									<?php 
+
+										$date=date('Y');
+
+										for ($i=2020; $i <= $date; $i++) { 
+											
+											echo '<option value="'.$i.'"'; if($i==$date){echo "selected='selected'";} echo '>'.$i.'</option>';
+										}
+
+									?>
+	                            </select>
+	                        </div>
+	                    </div>
+					</form>
+
+					<div id="message">
+															
+							
 					</div>
-				</div>
-				<div class="col-xl-4 pad align-items-center mx-auto" >
-					<div class="mx-auto" style="background: #563D7C;width: 250px;height: 250px;border-radius: 125px;">
-						<p class="count text-center" style="padding-top: 40%;font-size: 30px;color: #fff;">2500000</p>
-						<p class="text-center" style="padding-top: 12%;font-size: 18px;color: #fff;">Total</p>
+
+					<div class="row table-responsive justify-content-center" >
+						
+						<div class="card-body col-12 offset-sm-1 col-sm-10" id="table">
+							
+						</div>
+		
 					</div>
-				</div>
-			</div>
-	    </div>
+		    	</div>
+
+		    </div>
+
+		</div>	
 	</div>
 
 
@@ -89,23 +138,8 @@
 	<script src="../js/jquery.min.js"></script>
 	<script src="../js/popper.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
-
-	<script>
-		
-
-		$('.count').each(function () {
-		    $(this).prop('Counter',0).animate({
-		        Counter: $(this).text()
-		    }, {
-		        duration: 5000,
-		        easing: 'swing',
-		        step: function (now) {
-		            $(this).text(Math.ceil(now)+' ৳');
-		        }
-		    });
-		});
-
-	</script>
+	<script src="../js/display.js"></script>
+	
 </body>
 </html>
 

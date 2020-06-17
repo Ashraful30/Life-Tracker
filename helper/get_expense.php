@@ -144,4 +144,119 @@
 		}
 	}	
 
+
+	if(isset($_POST["get_expense"])){
+
+		$from_month = date('Y').'-'.date('m').'-01';
+		$to_month = date('Y').'-'.date('m').'-31';
+
+		$from_year = date('Y').'-01-'.'01';
+		$to_year = date('Y').'-12-'.'31';
+
+
+		
+		$sql="SELECT SUM(amount) AS sum FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT id FROM category WHERE category_name='Expense')))";
+			
+		
+		$res=mysqli_query($conn,$sql);
+
+		if ($res) {
+			
+			$row=mysqli_fetch_assoc($res);
+			
+			$data['total']=$row['sum'];
+		}
+		else{
+			echo "Error in data fetch";	
+		}
+
+
+		$sql="SELECT SUM(amount) AS sum FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT id FROM category WHERE category_name='Expense'))) AND date BETWEEN '$from_month' AND '$to_month' ";
+
+		$res=mysqli_query($conn,$sql);
+
+		if ($res) {
+			
+			$row=mysqli_fetch_assoc($res);
+			
+			$data['month']=$row['sum'];
+		}
+		else{
+			echo "Error in data fetch";	
+		}
+
+		$sql="SELECT SUM(amount) AS sum FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT id FROM category WHERE category_name='Expense'))) AND date BETWEEN '$from_year' AND '$to_year' ";
+
+		$res=mysqli_query($conn,$sql);
+
+		if ($res) {
+			
+			$row=mysqli_fetch_assoc($res);
+			
+			$data['year']=$row['sum'];
+		}
+		else{
+			echo "Error in data fetch";	
+		}
+
+		echo json_encode($data);
+	}
+
+
+
+	if (isset($_POST['month'])) {
+
+		$month=$_POST['month'];
+		$year=$_POST['year'];
+		$total=0;
+
+		$from=$year.'-'.$month.'-01';
+		$to=$year.'-'.$month.'-31';
+
+		$value="";
+		$value='<table class="table text-center">
+					<thead class="thead-dark">
+						<tr>
+							<th>Title</th>
+							<th>Description</th>
+							<th>Date</th>
+							<th>Amount</th>
+						</tr>
+					</thead<tbody>';
+
+		if ($month==0) {
+			$sql="SELECT title,description,amount,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT id FROM category WHERE category_name='Expense')))";
+		}
+		else{
+			$sql="SELECT title,description,amount,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT id FROM category WHERE category_name='Expense'))) AND date BETWEEN '$from' AND '$to' ";
+		}
+
+		$res=mysqli_query($conn,$sql);
+
+		if ($res) {
+			
+			while ($row=mysqli_fetch_assoc($res)) {
+				
+				$value.='<tr class="thover">
+							<td>'.$row['title'].'</td>
+							<td>'.$row['description'].'</td>
+							<td>'.$row['date'].'</td>
+							<td>'.$row['amount'].'</td>
+						</tr>';
+				$total+=$row['amount'];
+			}
+			$value.='<tr class="thover">
+							<td class="text-primary font-weight-bold" colspan="3">Total</td>
+							<td class="text-primary font-weight-bold">'.$total.'</td>
+						</tr>';
+			$value.='</tbody></table>';
+			//echo $value;
+			echo json_encode(['status'=>'success','html'=>$value]);
+			//echo $value;
+		}
+		else{
+			echo "Error in data fetch";	
+		}
+	}
+
 ?>

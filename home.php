@@ -2,33 +2,17 @@
 
     session_start();
 
-
-	// error_reporting(0);
-
 	if(!$_SESSION['login_user']){
 
 		header("location:index.php");
 	}
-	// include('db_connect.php');
-	// $log_in_error="";
-	// $email="";
-	// $password="";
 
-	// if(isset($_POST["submit"])){
+	if(isset($_POST["logout"])){
 
-	// 	$email=mysqli_real_escape_string($conn,$_POST["email"]);
-	// 	$password=mysqli_real_escape_string($conn,$_POST["password"]);
-	// 	$sql="Select id from admin where admin_email='$email' and admin_password='$password'";
-	// 	$result = mysqli_query($conn, $sql);
-
-	// 	if (mysqli_num_rows($result)) {
-
-	// 		$_SESSION['login_user']=$email;
-	// 	    header('location:home.php');
-	// 	}
-	// 	else
-	// 		$log_in_error="Incorrect Email & Password";
-	// }
+		unset($_SESSION['login_user']);
+		session_destroy();
+		header("location:index.php");
+	}
  ?>
 
 
@@ -110,6 +94,35 @@
 			</div>
 		</div>
 	</nav>
+
+	<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+	aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content" >
+				<div class="modal-header" style="border: none;">
+					<div class="container">
+						<div class="row">
+							<h5 class="modal-title">Log out <i class="fas fa-lg fa-sign-out-alt"></i></h5>
+							<button type="button" class="close pb-4" data-dismiss="modal" >
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body mx-3">
+					<p><i class="fa fa-question-circle"></i> Are you sure you want to log-off?</p>
+
+					<div class="modal-footer pt-4" style="border-top: none">
+				        <form action="" method="post">
+				        	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				        	<button type="submit" name="logout" class="btn btn-danger">Logout</button>
+				        </form>
+			      </div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
 	
 	<div class="container-fluid">
 		
