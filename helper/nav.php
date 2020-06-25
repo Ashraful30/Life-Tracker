@@ -43,7 +43,7 @@
 					<div class="dropdown-menu idiv" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="add_life_event.php">Add Life Event</a>
                         <a class="dropdown-item" href="manage_life_event.php">Manage Life Event</a>
-                        <a class="dropdown-item" href="#">View Life Event</a>
+                        <a class="dropdown-item" href="life_event.php">View Life Event</a>
                     </div>
 				</li>					
 			

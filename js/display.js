@@ -2,10 +2,12 @@ $(document).ready(function(){
 
 
 	income_counter();
-	view();
+	view_income();
+	pagination_view_income();
 
 	expense_counter();
 	view_expense();
+	pagination_view_expense();
 
 })
 
@@ -19,40 +21,40 @@ function income_counter(){
 		method: 'post',
 		data: {get_income:2},
 		success: function(data){
-			console.log(data);
+			//console.log(data);
 			data = $.parseJSON(data);
-			$('.count3').each(function (){
+			$('.icount3').each(function (){
 
 				$({countNum: 0}).animate({countNum: data['total']}, {
 				  duration: 5000,
 				  step: function() {
 				    // What todo on every count
 				    //console.log(Math.floor(this.countNum));
-				    $('#total').html(Math.ceil(this.countNum)+' ৳');
+				    $('#itotal').html(Math.ceil(this.countNum)+' ৳');
 				  }
 				});
 			});
 
-			$('.count2').each(function (){
+			$('.icount2').each(function (){
 
 				$({countNum: 0}).animate({countNum: data['year']}, {
 				  duration: 5000,
 				  step: function() {
 				    // What todo on every count
 				    //console.log(Math.floor(this.countNum));
-				    $('#year').html(Math.ceil(this.countNum)+' ৳');
+				    $('#iyear').html(Math.ceil(this.countNum)+' ৳');
 				  }
 				});
 			});
 
-			$('.count3').each(function (){
+			$('.icount3').each(function (){
 
 				$({countNum: 0}).animate({countNum: data['month']}, {
 				  duration: 5000,
 				  step: function() {
 				    // What todo on every count
 				    //console.log(Math.floor(this.countNum));
-				    $('#month').html(Math.ceil(this.countNum)+' ৳');
+				    $('#imonth').html(Math.ceil(this.countNum)+' ৳');
 				  }
 				});
 			});
@@ -61,59 +63,11 @@ function income_counter(){
 }
 
 
+function helper_income(){
 
-function view(){
-
-	$('#m').on('change', function() {
-
-		var month = $("#m").val();
-		var year = $("#y").val();
-		$.ajax({
-
-			url: 'get_income.php',
-			method: 'post',
-			data: {month:month,year:year},
-			success: function(data){
-				
-				data = $.parseJSON(data);
-				if (data.status=='success') {
-
-					$('#table').html(data.html);
-				}
-			}
-		})
-	}); 
-
-	$('#y').on('change', function() {
-
-		var month = $("#m").val();
-		var year = $("#y").val();
-		$.ajax({
-
-			url: 'get_income.php',
-			method: 'post',
-			data: {month:month,year:year},
-			success: function(data){
-				
-				data = $.parseJSON(data);
-				if (data.status=='success') {
-
-					$('#table').html(data.html);
-				}
-			}
-		})
-	}); 
-}
-
-
-
-
-
-function onload_view(){
-
-	var month = $("#m").val();
-	var year = $("#y").val();
-
+	var month = $("#im").val();
+	var year = $("#iy").val();
+	window.per_page = $("#iper_page").val();
 	//console.log(month+year);
 	$.ajax({
 
@@ -121,15 +75,112 @@ function onload_view(){
 		method: 'post',
 		data: {month:month,year:year},
 		success: function(data){
-			
-			data = $.parseJSON(data);
-			if (data.status=='success') {
 
-				$('#table').html(data.html);
+			data = $.parseJSON(data);
+			window.obj=data.value['data'];
+			window.total=data.value['total'];
+			window.size=obj.length;
+			window.add_active=1;
+			window.remove_active=0;
+			var end;
+			var content='';
+			var pagination='';
+			if (size < per_page) {
+
+				end=size;
 			}
+			else {
+
+				end=per_page;
+			}
+
+			content='<table class="table text-center" style="min-height:500px !important;"> <thead class="thead-dark"> <tr> <th>Title</th><th>Description</th> <th>Amount</th> <th>Date</th> </tr> </thead<tbody>';
+			for (start=0; start < end; start++) { 
+				
+				content += '<tr> <td>'+obj[start]['title']+'</td> <td>'+obj[start]['description']+'</td> <td>'+obj[start]['amount']+'</td> <td>'+obj[start]['date']+'</td> </tr>';
+			}
+			//console.log(data.value['total']);
+			content+='<tr> <td colspan="3" style="font-weight: bold;color:#512DA8;font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8;font-size:20px;">'+total+'</td> </tr>';
+			content+='</tbody></table><br>';
+
+			content+='<nav aria-label="Page navigation example"> <ul class="pagination justify-content-center">';
+
+			if(size > per_page){
+
+				var k=1;
+				for(var j=0; j< Math.ceil(size/per_page); j++){
+
+					content += '<li class="page-item"><button class="page-link page'+k+'" id="ipag" idata-id="'+k+'">'+k+'</button></li>';
+					k++;
+				}
+			}
+
+			content+= '</ul> </nav>';
+			//console.log(content);
+			$('#itable').html(content);
+			$(".page1").css({"background-color":"#007BFF","color":"#fff"});
+			
 		}
 	})
 }
+
+
+function view_income(){
+
+	$('#im').on('change', function() {
+
+		helper_income();
+	}); 
+
+	$('#iy').on('change', function() {
+
+		helper_income();
+	}); 
+
+	$('#iper_page').on('change', function() {
+
+		helper_income();
+	});
+}
+
+
+
+function pagination_view_income(){
+
+	$(document).on('click','#ipag',function(){
+
+		//console.log("Page No: "+ $(this).attr('data-id'));
+
+		var page=$(this).attr('idata-id');
+		remove_active=add_active;
+		add_active=page;
+		$("#itable > table").html("");
+
+		end=page*per_page;
+		
+		if (end>size) {
+				end=size;
+		}
+		var start=(page*per_page)-per_page;
+		// echo ' Start '.$start;
+		var content= '<table class="table text-center"> <thead class="thead-dark"> <tr><th>Title</th><th>Description</th><th>Amount</th><th>Date</th> </tr> </thead<tbody>';
+
+		for (start; start < end; start++) { 
+			
+			content += '<tr> <td>'+obj[start]['title']+'</td> <td>'+obj[start]['description']+'</td> <td>'+obj[start]['amount']+'</td> <td>'+obj[start]['date']+'</td> </tr>';
+		}
+		content+='<tr> <td colspan="3" style="font-weight: bold;color:#512DA8; font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8; font-size:20px;">'+total+'</td> </tr>';
+		content+='</tbody></table>';
+		$("#itable > table").html(content);
+
+		//var id=".page"+page;
+
+		$(".page"+remove_active).css({"background-color":"#fff","color":"#007BFF"});
+		$(".page"+add_active).css({"background-color":"#007BFF","color":"#fff"});
+	
+	})
+}
+
 
 
 //       Expense
@@ -144,40 +195,40 @@ function expense_counter(){
 		method: 'post',
 		data: {get_expense:2},
 		success: function(data){
-			console.log(data);
+			//console.log(data);
 			data = $.parseJSON(data);
-			$('.count3').each(function (){
+			$('.ecount3').each(function (){
 
 				$({countNum: 0}).animate({countNum: data['total']}, {
 				  duration: 5000,
 				  step: function() {
 				    // What todo on every count
 				    //console.log(Math.floor(this.countNum));
-				    $('#total_expense').html(Math.ceil(this.countNum)+' ৳');
+				    $('#etotal').html(Math.ceil(this.countNum)+' ৳');
 				  }
 				});
 			});
 
-			$('.count2').each(function (){
+			$('.ecount2').each(function (){
 
 				$({countNum: 0}).animate({countNum: data['year']}, {
 				  duration: 5000,
 				  step: function() {
 				    // What todo on every count
 				    //console.log(Math.floor(this.countNum));
-				    $('#year_expense').html(Math.ceil(this.countNum)+' ৳');
+				    $('#eyear').html(Math.ceil(this.countNum)+' ৳');
 				  }
 				});
 			});
 
-			$('.count3').each(function (){
+			$('.ecount3').each(function (){
 
 				$({countNum: 0}).animate({countNum: data['month']}, {
 				  duration: 5000,
 				  step: function() {
 				    // What todo on every count
 				    //console.log(Math.floor(this.countNum));
-				    $('#month_expense').html(Math.ceil(this.countNum)+' ৳');
+				    $('#emonth').html(Math.ceil(this.countNum)+' ৳');
 				  }
 				});
 			});
@@ -186,59 +237,11 @@ function expense_counter(){
 }
 
 
+function helper_expense(){
 
-function view_expense(){
-
-	$('#m_expense').on('change', function() {
-
-		var month = $("#m_expense").val();
-		var year = $("#y_expense").val();
-		$.ajax({
-
-			url: 'get_expense.php',
-			method: 'post',
-			data: {month:month,year:year},
-			success: function(data){
-				
-				data = $.parseJSON(data);
-				if (data.status=='success') {
-
-					$('#table_expense').html(data.html);
-				}
-			}
-		})
-	}); 
-
-	$('#y_expense').on('change', function() {
-
-		var month = $("#m_expense").val();
-		var year = $("#y_expense").val();
-		$.ajax({
-
-			url: 'get_expense.php',
-			method: 'post',
-			data: {month:month,year:year},
-			success: function(data){
-				
-				data = $.parseJSON(data);
-				if (data.status=='success') {
-
-					$('#table_expense').html(data.html);
-				}
-			}
-		})
-	}); 
-}
-
-
-
-
-
-function onload_view_expense(){
-
-	var month = $("#m_expense").val();
-	var year = $("#y_expense").val();
-
+	var month = $("#em").val();
+	var year = $("#ey").val();
+	window.expense_per_page = $("#eper_page").val();
 	//console.log(month+year);
 	$.ajax({
 
@@ -246,12 +249,108 @@ function onload_view_expense(){
 		method: 'post',
 		data: {month:month,year:year},
 		success: function(data){
-			
-			data = $.parseJSON(data);
-			if (data.status=='success') {
 
-				$('#table_expense').html(data.html);
+			data = $.parseJSON(data);
+			window.expense=data.value['data'];
+			window.expense_total=data.value['total'];
+			window.expense_size=expense.length;
+			window.expense_add_active=1;
+			window.expense_remove_active=0;
+			var end;
+			var content='';
+			var pagination='';
+			if (expense_size < expense_per_page) {
+
+				end=expense_size;
 			}
+			else {
+
+				end=expense_per_page;
+			}
+
+			content='<table class="table text-center" style="min-height:500px !important;"> <thead class="thead-dark"> <tr> <th>Title</th><th>Description</th> <th>Amount</th> <th>Date</th> </tr> </thead<tbody>';
+			for (start=0; start < end; start++) { 
+				
+				content += '<tr> <td>'+expense[start]['title']+'</td> <td>'+expense[start]['description']+'</td> <td>'+expense[start]['amount']+'</td> <td>'+expense[start]['date']+'</td> </tr>';
+			}
+			//console.log(data.value['total']);
+			content+='<tr> <td colspan="3" style="font-weight: bold;color:#512DA8;font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8;font-size:20px;">'+expense_total+'</td> </tr>';
+			content+='</tbody></table><br>';
+
+			content+='<nav aria-label="Page navigation example"> <ul class="pagination justify-content-center">';
+
+			if(expense_size > expense_per_page){
+
+				var k=1;
+				for(var j=0; j< Math.ceil(expense_size/expense_per_page); j++){
+
+					content += '<li class="page-item"><button class="page-link page'+k+'" id="epag" edata-id="'+k+'">'+k+'</button></li>';
+					k++;
+				}
+			}
+
+			content+= '</ul> </nav>';
+			//console.log(content);
+			$('#etable').html(content);
+			$(".page1").css({"background-color":"#007BFF","color":"#fff"});
+			
 		}
+	})
+}
+
+
+function view_expense(){
+
+	$('#em').on('change', function() {
+
+		helper_expense();
+	}); 
+
+	$('#ey').on('change', function() {
+
+		helper_expense();
+	}); 
+
+	$('#eper_page').on('change', function() {
+
+		helper_expense();
+	});
+}
+
+
+
+function pagination_view_expense(){
+
+	$(document).on('click','#epag',function(){
+
+		//console.log("Page No: "+ $(this).attr('data-id'));
+
+		var page=$(this).attr('edata-id');
+		expense_remove_active=expense_add_active;
+		expense_add_active=page;
+		$("#etable > table").html("");
+
+		end=page*expense_per_page;
+		
+		if (end>expense_size) {
+				end=expense_size;
+		}
+		var start=(page*expense_per_page)-expense_per_page;
+		// echo ' Start '.$start;
+		var content= '<table class="table text-center"> <thead class="thead-dark"> <tr><th>Title</th><th>Description</th><th>Amount</th><th>Date</th> </tr> </thead<tbody>';
+
+		for (start; start < end; start++) { 
+			
+			content += '<tr> <td>'+expense[start]['title']+'</td> <td>'+expense[start]['description']+'</td> <td>'+expense[start]['amount']+'</td> <td>'+expense[start]['date']+'</td> </tr>';
+		}
+		content+='<tr> <td colspan="3" style="font-weight: bold;color:#512DA8; font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8; font-size:20px;">'+expense_total+'</td> </tr>';
+		content+='</tbody></table>';
+		$("#etable > table").html(content);
+
+		//var id=".page"+page;
+
+		$(".page"+expense_remove_active).css({"background-color":"#fff","color":"#007BFF"});
+		$(".page"+expense_add_active).css({"background-color":"#007BFF","color":"#fff"});
+	
 	})
 }

@@ -25,7 +25,7 @@
 	<title>Life Tracker</title>
 
 	<style>
-		#iactive{
+		#eactive{
 			color: white;
 		}
 		.pad{
@@ -36,7 +36,7 @@
 
 </head>
 
-<body onload="onload_view_expense();">
+<body onload="helper_expense();">
 
 	
 	<?php include 'nav.php'; ?>
@@ -48,19 +48,19 @@
 				<div class="row col-12 offset-md-2 col-md-8">
 					<div class="col-xl-4 pad align-items-center mx-auto" >
 						<div class="mx-auto" style="background: #563D7C;width: 200px;height: 200px;border-radius: 100px;">
-							<p class="count1 text-center" style="padding-top: 36%;font-size: 30px;color: #fff;" id="month_expense"></p>
+							<p class="ecount1 text-center" style="padding-top: 36%;font-size: 30px;color: #fff;" id="emonth"></p>
 							<p class="text-center" style="padding-top: 6%;font-size: 18px;color: #fff;">This Month</p>
 						</div>
 					</div>
 					<div class="col-xl-4 pad align-items-center mx-auto" >
 						<div class="mx-auto" style="background: #563D7C;width: 200px;height: 200px;border-radius: 100px;">
-							<p class="count2 text-center" style="padding-top: 36%;font-size: 30px;color: #fff;" id="year_expense"></p>
+							<p class="ecount2 text-center" style="padding-top: 36%;font-size: 30px;color: #fff;" id="eyear"></p>
 							<p class="text-center" style="padding-top: 6%;font-size: 18px;color: #fff;">This Year</p>
 						</div>
 					</div>
 					<div class="col-xl-4 pad align-items-center mx-auto" >
 						<div class="mx-auto" style="background: #563D7C;width: 200px;height: 200px;border-radius: 100px;">
-							<p class="count3 text-center" style="padding-top: 36%;font-size: 30px;color: #fff;" id="total_expense"></p>
+							<p class="ecount3 text-center" style="padding-top: 36%;font-size: 30px;color: #fff;" id="etotal"></p>
 							<p class="text-center" style="padding-top: 6%;font-size: 18px;color: #fff;">Total</p>
 						</div>
 					</div>
@@ -74,9 +74,9 @@
 					<form action="" method="post">
 						
 	                 	<div class="form-group row">
-	                        <label for="description" class="col-4 offset-sm-2 col-sm-2 col-from-label text-center" ><h5> Income </h5></label>
-	                        <div class="col-4 col-sm-3">
-								<select class="form-control" name="month" id="m_expense">
+	                        <label for="description" class="col-4 offset-sm-2 col-sm-2 col-from-label text-center" ><h5> Expense </h5></label>
+	                        <div class="col-4 col-sm-2">
+								<select class="form-control" name="month" id="em">
 
 									<?php $date=date('m'); ?>
 									
@@ -95,8 +95,8 @@
 									<option value="12" <?php if($date=='12'){echo "selected='selected'";} ?>>December</option>
 	                            </select>
 	                        </div>
-	                        <div class="col-4 col-sm-3">
-								<select class="form-control" id="y_expense">
+	                        <div class="col-4 col-sm-2">
+								<select class="form-control" id="ey">
 									
 									<?php 
 
@@ -110,6 +110,19 @@
 									?>
 	                            </select>
 	                        </div>
+
+							<label for="description" class="col-4 col-sm-1 col-from-label text-center" ><p style="font-size: 18px;"> Show</p></label>
+
+	                        <div class="col-4 col-sm-1">
+
+								<select class="form-control" id="eper_page">
+									
+									<option value="8" selected>8</option>
+									<option value="15">15</option>
+									<option value="25">25</option>
+									<option value="50">50</option>
+	                            </select>
+	                        </div> 
 	                    </div>
 					</form>
 
@@ -120,7 +133,7 @@
 
 					<div class="row table-responsive justify-content-center" >
 						
-						<div class="card-body col-12 offset-sm-1 col-sm-10" id="table_expense">
+						<div class="card-body col-12 offset-sm-1 col-sm-10" id="etable">
 							
 						</div>
 		

@@ -212,16 +212,8 @@
 		$from=$year.'-'.$month.'-01';
 		$to=$year.'-'.$month.'-31';
 
-		$value="";
-		$value='<table class="table text-center">
-					<thead class="thead-dark">
-						<tr>
-							<th>Title</th>
-							<th>Description</th>
-							<th>Date</th>
-							<th>Amount</th>
-						</tr>
-					</thead<tbody>';
+		$value=[];
+		
 
 		if ($month==0) {
 			$sql="SELECT title,description,amount,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT id FROM category WHERE category_name='Income')))";
@@ -233,24 +225,20 @@
 		$res=mysqli_query($conn,$sql);
 
 		if ($res) {
-			
+			$i=0;
 			while ($row=mysqli_fetch_assoc($res)) {
 				
-				$value.='<tr class="thover">
-							<td>'.$row['title'].'</td>
-							<td>'.$row['description'].'</td>
-							<td>'.$row['date'].'</td>
-							<td>'.$row['amount'].'</td>
-						</tr>';
+				$value[$i]['title']=$row['title'];
+				$value[$i]['description']=$row['description'];
+				$value[$i]['date']=$row['date'];
+				$value[$i]['amount']=$row['amount'];
 				$total+=$row['amount'];
+				$i++;
 			}
-			$value.='<tr class="thover">
-							<td class="text-primary font-weight-bold" colspan="3">Total</td>
-							<td class="text-primary font-weight-bold">'.$total.'</td>
-						</tr>';
-			$value.='</tbody></table>';
+			$data['data']=$value;
+			$data['total']=$total;
 			//echo $value;
-			echo json_encode(['status'=>'success','html'=>$value]);
+			echo json_encode(['status'=>'success','value'=>$data]);
 			//echo $value;
 		}
 		else{
