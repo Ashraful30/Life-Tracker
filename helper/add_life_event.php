@@ -15,12 +15,12 @@
 	$msg="";
 	if(isset($_POST["add_life_event"])){
 
-		$title=$_POST["title"];
+		$title=addslashes($_POST["title"]);
 		$date=$_POST["date"];
-		$description=$_POST["description"];
+		$description=addslashes($_POST["description"]);
 		$parent_id=$_POST["parent_id"];
 		$sql="insert into event(title,description,parent_id,date) values('$title','$description','$parent_id','$date')";
-
+		//echo $sql;
 		$res=mysqli_query($conn,$sql);
 
 		if ($res) {

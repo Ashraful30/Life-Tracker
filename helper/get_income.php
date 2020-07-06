@@ -216,10 +216,14 @@
 		
 
 		if ($month==0) {
-			$sql="SELECT title,description,amount,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT id FROM category WHERE category_name='Income')))";
+
+			$from=$year.'-01-01';
+			$to=$year.'-12-31';
+
+			$sql="SELECT title,description,amount,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT id FROM category WHERE category_name='Income'))) AND date BETWEEN '$from' AND '$to' ORDER BY date DESC";
 		}
 		else{
-			$sql="SELECT title,description,amount,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT id FROM category WHERE category_name='Income'))) AND date BETWEEN '$from' AND '$to' ";
+			$sql="SELECT title,description,amount,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT id FROM category WHERE category_name='Income'))) AND date BETWEEN '$from' AND '$to' ORDER BY date DESC";
 		}
 
 		$res=mysqli_query($conn,$sql);

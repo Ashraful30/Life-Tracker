@@ -21,6 +21,7 @@
 	<link rel="stylesheet" href="../css/bootstrap-social.css">
 	<link rel="stylesheet" href="../css/index.css">
 	<link rel="stylesheet" href="../css/fontawesome/css/all.css">
+	<link rel="stylesheet" href="../css/nav.css">
 	<link rel="icon" type="image/gif/png" href="../img/symbol.png">
 	<title>Life Tracker</title>
 
@@ -44,7 +45,7 @@
 
 	<div class="container-fluid ">	
 		<div class="row-content">
-			<div class="row">
+			<div class="row justify-content-center">
 				<div class="row col-12 offset-md-2 col-md-8">
 					<div class="col-xl-4 pad align-items-center mx-auto" >
 						<div class="mx-auto" style="background: #563D7C;width: 200px;height: 200px;border-radius: 100px;">

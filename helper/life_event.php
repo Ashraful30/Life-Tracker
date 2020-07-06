@@ -21,6 +21,7 @@
 	<link rel="stylesheet" href="../css/bootstrap-social.css">
 	<link rel="stylesheet" href="../css/index.css">
 	<link rel="stylesheet" href="../css/fontawesome/css/all.css">
+	<link rel="stylesheet" href="../css/nav.css">
 	<link rel="icon" type="image/gif/png" href="../img/symbol.png">
 	<title>Life Tracker</title>
 
@@ -36,7 +37,7 @@
 
 </head>
 
-<body onload="helper();">
+<body onload="helper_life_event();">
 
 	
 	<?php include 'nav.php'; ?>
@@ -44,28 +45,6 @@
 
 	<div class="container-fluid ">	
 		<div class="row-content">
-			<div class="row">
-				<div class="row col-12 offset-md-2 col-md-8">
-					<div class="col-xl-4 pad align-items-center mx-auto" >
-						<div class="mx-auto" style="background: #563D7C;width: 200px;height: 200px;border-radius: 100px;">
-							<p class="count1 text-center" style="padding-top: 36%;font-size: 30px;color: #fff;" id="month"></p>
-							<p class="text-center" style="padding-top: 6%;font-size: 18px;color: #fff;">This Month</p>
-						</div>
-					</div>
-					<div class="col-xl-4 pad align-items-center mx-auto" >
-						<div class="mx-auto" style="background: #563D7C;width: 200px;height: 200px;border-radius: 100px;">
-							<p class="count2 text-center" style="padding-top: 36%;font-size: 30px;color: #fff;" id="year"></p>
-							<p class="text-center" style="padding-top: 6%;font-size: 18px;color: #fff;">This Year</p>
-						</div>
-					</div>
-					<div class="col-xl-4 pad align-items-center mx-auto" >
-						<div class="mx-auto" style="background: #563D7C;width: 200px;height: 200px;border-radius: 100px;">
-							<p class="count3 text-center" style="padding-top: 36%;font-size: 30px;color: #fff;" id="total"></p>
-							<p class="text-center" style="padding-top: 6%;font-size: 18px;color: #fff;">Total</p>
-						</div>
-					</div>
-				</div>
-		    </div>
 
 			<div class="row mt-4">
 
@@ -74,9 +53,9 @@
 					<form action="" method="post">
 						
 	                 	<div class="form-group row">
-	                        <label for="description" class="col-4 offset-sm-2 col-sm-2 col-from-label text-center" ><h5> Income </h5></label>
+	                        <label for="description" class="col-4 offset-sm-2 col-sm-2 col-from-label text-center" ><h5> Life Event </h5></label>
 	                        <div class="col-4 col-sm-2">
-								<select class="form-control" name="month" id="m">
+								<select class="form-control" name="month" id="lm">
 
 									<?php $date=date('m'); ?>
 									
@@ -96,14 +75,14 @@
 	                            </select>
 	                        </div>
 	                        <div class="col-4 col-sm-2">
-								<select class="form-control" id="y">
-									
+								<select class="form-control" id="ly">
+									<option value="-1" >Birthday</option>
 									<?php 
 
 										$date=date('Y');
 
 										for ($i=2020; $i <= $date; $i++) { 
-											
+
 											echo '<option value="'.$i.'"'; if($i==$date){echo "selected='selected'";} echo '>'.$i.'</option>';
 										}
 
@@ -115,7 +94,7 @@
 
 	                        <div class="col-4 col-sm-1">
 
-								<select class="form-control" id="per_page">
+								<select class="form-control" id="lper_page">
 									
 									<option value="8" selected>8</option>
 									<option value="15">15</option>
@@ -133,7 +112,7 @@
 
 					<div class="row table-responsive justify-content-center" >
 						
-						<div class="card-body col-12 offset-sm-1 col-sm-10" id="ttable">
+						<div class="card-body col-12 offset-sm-1 col-sm-10" id="ltable">
 							
 						</div>
 		

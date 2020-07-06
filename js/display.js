@@ -9,6 +9,9 @@ $(document).ready(function(){
 	view_expense();
 	pagination_view_expense();
 
+	view_life_event();
+	pagination_view_life_event();
+
 })
 
 
@@ -351,6 +354,134 @@ function pagination_view_expense(){
 
 		$(".page"+expense_remove_active).css({"background-color":"#fff","color":"#007BFF"});
 		$(".page"+expense_add_active).css({"background-color":"#007BFF","color":"#fff"});
+	
+	})
+}
+
+
+
+
+//       Life Event
+
+
+
+
+
+function helper_life_event(){
+
+	var month = $("#lm").val();
+	var year = $("#ly").val();
+	window.life_event_per_page = $("#lper_page").val();
+	//console.log(month+' '+year);
+	$.ajax({
+
+		url: 'get_life_event.php',
+		method: 'post',
+		data: {month:month,year:year},
+		success: function(data){
+
+			//console.log(data);
+			data = $.parseJSON(data);
+			//console.log(data.value);
+			window.life_event=data.value;
+			window.life_event_size=life_event.length;
+			window.life_event_add_active=1;
+			window.life_event_remove_active=0;
+			var end;
+			var content='';
+			var pagination='';
+			if (life_event_size < life_event_per_page) {
+
+				end=life_event_size;
+			}
+			else {
+
+				end=life_event_per_page;
+			}
+
+			content='<table class="table text-center" style="min-height:500px !important;"> <thead class="thead-dark"> <tr> <th>Title</th><th>Description</th> <th>Date</th> </tr> </thead<tbody>';
+			for (start=0; start < end; start++) { 
+				
+				content += '<tr> <td>'+life_event[start]['title']+'</td> <td>'+life_event[start]['description']+'</td> <td>'+life_event[start]['date']+'</td> </tr>';
+			}
+			//console.log(data.value['total']);
+			
+			content+='</tbody></table><br>';
+
+			content+='<nav aria-label="Page navigation example"> <ul class="pagination justify-content-center">';
+
+			if(life_event_size > life_event_per_page){
+
+				var k=1;
+				for(var j=0; j< Math.ceil(life_event_size/life_event_per_page); j++){
+
+					content += '<li class="page-item"><button class="page-link page'+k+'" id="lpag" ldata-id="'+k+'">'+k+'</button></li>';
+					k++;
+				}
+			}
+
+			content+= '</ul> </nav>';
+			//console.log(content);
+			$('#ltable').html(content);
+			$(".page1").css({"background-color":"#007BFF","color":"#fff"});
+			
+		}
+	})
+}
+
+
+function view_life_event(){
+
+	$('#lm').on('change', function() {
+
+		helper_life_event();
+	}); 
+
+	$('#ly').on('change', function() {
+
+		helper_life_event();
+	}); 
+
+	$('#lper_page').on('change', function() {
+
+		helper_life_event();
+	});
+}
+
+
+
+function pagination_view_life_event(){
+
+	$(document).on('click','#lpag',function(){
+
+		//console.log("Page No: "+ $(this).attr('data-id'));
+
+		var page=$(this).attr('ldata-id');
+		life_event_remove_active=life_event_add_active;
+		life_event_add_active=page;
+		$("#ltable > table").html("");
+
+		end=page*life_event_per_page;
+		
+		if (end>life_event_size) {
+				end=life_event_size;
+		}
+		var start=(page*life_event_per_page)-life_event_per_page;
+		// echo ' Start '.$start;
+		var content= '<table class="table text-center"> <thead class="thead-dark"> <tr><th>Title</th><th>Description</th><th>Date</th> </tr> </thead<tbody>';
+
+		for (start; start < end; start++) { 
+			
+			content += '<tr> <td>'+life_event[start]['title']+'</td> <td>'+life_event[start]['description']+'</td> <td>'+life_event[start]['date']+'</td> </tr>';
+		}
+
+		content+='</tbody></table>';
+		$("#ltable > table").html(content);
+
+		//var id=".page"+page;
+
+		$(".page"+life_event_remove_active).css({"background-color":"#fff","color":"#007BFF"});
+		$(".page"+life_event_add_active).css({"background-color":"#007BFF","color":"#fff"});
 	
 	})
 }

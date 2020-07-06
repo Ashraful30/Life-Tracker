@@ -19,3 +19,9 @@
 .my-style:hover{
 	color: #C8C8C8 !important;
 }
+
+.row{
+
+	margin-right: 0px;
+	margin-left: 0px;
+}

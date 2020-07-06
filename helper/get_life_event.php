@@ -138,6 +138,66 @@
 		else{
 			echo "Failed to delete";	
 		}
+	}
+
+
+	if (isset($_POST['month'])) {
+
+		$month=$_POST['month'];
+		$year=$_POST['year'];
+		$total=0;
+
+		$from=$year.'-'.$month.'-01';
+		$to=$year.'-'.$month.'-31';
+
+		$value=[];
+		
+		if ($year==-1) {
+
+			if ($month==0) {
+
+				$from='1950-01-01';
+				$to=date('Y').'-12-31';
+
+				$sql="SELECT title,description,date FROM `event` WHERE parent_id=(SELECT DISTINCT id FROM category WHERE category_name='Birthday') AND date BETWEEN '$from' AND '$to' ORDER BY date DESC";
+			}
+			else{
+
+				$date='%-'.$month.'-%';
+
+				$sql="SELECT title,description,date FROM `event` WHERE parent_id=(SELECT DISTINCT id FROM category WHERE category_name='Birthday') AND date LIKE '$date' ORDER BY date DESC"; 
+			}
+		}
+		else if ($month==0) {
+
+			$from=$year.'-01-01';
+			$to=$year.'-12-31';
+
+			$sql="SELECT title,description,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT id FROM category WHERE category_name='Life Event'))) AND date BETWEEN '$from' AND '$to' ORDER BY date DESC";
+		}
+		else{
+			$sql="SELECT title,description,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT id FROM category WHERE category_name='Life Event'))) AND date BETWEEN '$from' AND '$to' ";
+		}
+
+		$res=mysqli_query($conn,$sql);
+
+		if ($res) {
+			$i=0;
+			while ($row=mysqli_fetch_assoc($res)) {
+				
+				$value[$i]['title']=$row['title'];
+				$value[$i]['description']=$row['description'];
+				$value[$i]['date']=$row['date'];
+				$i++;
+			}
+			
+			//echo $value;
+			echo json_encode(['status'=>'success','value'=>$value]);
+			//echo $value;
+		}
+		else{
+			echo "Error in data fetch";	
+		}
 	}	
 
 ?>

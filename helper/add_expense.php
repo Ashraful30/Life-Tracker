@@ -15,10 +15,10 @@
 	$msg="";
 	if(isset($_POST["add_expense"])){
 
-		$title=$_POST["title"];
+		$title=addslashes($_POST["title"]);
 		$amount=$_POST["amount"];
 		$date=$_POST["date"];
-		$description=$_POST["description"];
+		$description=addslashes($_POST["description"]);
 		$parent_id=$_POST["parent_id"];
 		$sql="insert into event(title,description,amount,parent_id,date) values('$title','$description','$amount','$parent_id','$date')";
 

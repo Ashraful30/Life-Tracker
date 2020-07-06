@@ -2,7 +2,7 @@
 	<div class="container">				
 		<div class="row justify-content-center">
 			<div class="col-auto">
-				<p>&copy; Copyright 2020 Life Tracker</p>
+				<p><?php echo date('Y'); ?> &copy; Life Tracker. All Rights Reserved.</p>
 			</div>
 		</div>
 	</div>
