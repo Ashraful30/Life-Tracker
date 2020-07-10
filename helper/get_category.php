@@ -4,6 +4,11 @@
 	session_start();
 	include 'db_connect.php';
 
+	if(!$_SESSION['login_user']){
+
+		header("location:../index.php");
+	}
+
 	$error="";
 	$msg="";
 

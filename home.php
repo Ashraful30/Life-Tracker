@@ -33,7 +33,7 @@
 
 </head>
 
-<body>
+<body onload="home_content();">
 
 	
 	<nav class="navbar navbar-dark navbar-expand-sm fixed-top">
@@ -71,7 +71,7 @@
 						<div class="dropdown-menu idiv" aria-labelledby="navbarDropdown">
 	                        <a class="dropdown-item" href="helper/add_expense.php">Add Expense</a>
 	                        <a class="dropdown-item" href="helper/manage_expense.php">Manage Expense</a>
-	                        <a class="dropdown-item" href="#">View Expense</a>
+	                        <a class="dropdown-item" href="helper/expense.php">View Expense</a>
                         </div>
 					</li>
 
@@ -81,7 +81,7 @@
 						<div class="dropdown-menu idiv" aria-labelledby="navbarDropdown">
 	                        <a class="dropdown-item" href="helper/add_life_event.php">Add Life Event</a>
 	                        <a class="dropdown-item" href="helper/manage_life_event.php">Manage Life Event</a>
-	                        <a class="dropdown-item" href="#">View Life Event</a>
+	                        <a class="dropdown-item" href="helper/life_event.php">View Life Event</a>
                         </div>
 					</li>					
 				
@@ -126,8 +126,85 @@
 	
 	<div class="container-fluid">
 		
-		<div class="row row-content">
-			
+		<div class="row-content">
+			<div class="row justify-content-center">
+				<h5 class="text-center pt-1 pb-1 pl-2 pr-2" style="font-family: fantasy;background: #512DEB;color: #fff;"><?php echo date('D').', '.date('M').' '.date('d').', '.date('Y'); ?></h5>
+			</div>
+			<div class="row pt-4">
+				<div class="col-12 col-sm-4">
+					<div class="row justify-content-center">
+						<div class="card" style="width: 100%;">
+							<div class="card-header text-center" style="background: #4925A0;color: #fff;">
+								Today's Event
+							</div>
+							
+							<div class="row table-responsive justify-content-center" >
+					
+								<div class="card-body" id="today">
+									
+								</div>
+				
+							</div>
+							
+						</div>
+					</div>
+
+					<div class="row justify-content-center">
+						<div class="card" style="width: 100%;">
+							<div class="card-header text-center" style="background: #4925A0;color: #fff;">
+								Upcoming Event
+							</div>
+							
+							<div class="row table-responsive justify-content-center" >
+					
+								<div class="card-body" id="upcoming">
+									
+								</div>
+				
+							</div>
+							
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 col-sm-4">
+					<div class="row justify-content-center">
+						<div class="card" style="width: 100%;">
+							<div class="card-header text-center" style="background: #4925A0;color: #fff;">
+								Last Few Income
+							</div>
+							
+							<div class="row table-responsive justify-content-center" >
+					
+								<div class="card-body" id="home_income">
+									
+								</div>
+				
+							</div>
+							
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 col-sm-4">
+					<div class="row justify-content-center">
+						<div class="card" style="width: 100%;">
+							<div class="card-header text-center" style="background: #4925A0;color: #fff;">
+								Last Few Expense
+							</div>
+							
+							<div class="row table-responsive justify-content-center" >
+					
+								<div class="card-body" id="home_expense">
+									
+								</div>
+				
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
 	</div>
@@ -137,6 +214,7 @@
 	<script src="js/jquery.min.js"></script>
 	<script src="js/popper.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	<script src="js/display.js"></script>
+
 </body>
 </html>
-

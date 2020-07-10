@@ -3,6 +3,11 @@
 	session_start();
 	include 'db_connect.php';
 
+	if(!$_SESSION['login_user']){
+
+		header("location:../index.php");
+	}
+
 	if (isset($_POST['pID'])) {
 
 		$id=$_POST['pID'];
@@ -104,9 +109,9 @@
 	if(isset($_POST["update_id"])){
 
 		$id=$_POST["update_id"];
-		$title=$_POST["update_title"];
+		$title=addslashes($_POST["update_title"]);
 		$date=$_POST["update_date"];
-		$description=$_POST["update_description"];
+		$description=addslashes($_POST["update_description"]);
 		$parent_id=$_POST["update_parent_id"];
 
 		
@@ -197,6 +202,97 @@
 		}
 		else{
 			echo "Error in data fetch";	
+		}
+	}
+
+
+	if (isset($_POST['day'])) {
+
+		$date='%-%-'.date('d');
+
+		$value=[];
+
+		$sql="SELECT title,description,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT DISTINCT id FROM category WHERE category_name='Life Event'))) AND date LIKE '$date' ORDER BY date ASC";
+	
+
+		$res=mysqli_query($conn,$sql);
+
+		if ($res) {
+			$i=0;
+			while ($row=mysqli_fetch_assoc($res)) {
+				
+				$value[$i]['title']=$row['title'];
+				$value[$i]['description']=$row['description'];
+				$value[$i]['date']=$row['date'];
+				$i++;
+			}
+			
+			//echo $value;
+			echo json_encode($value);
+			//echo $value;
+		}
+		else{
+			echo "Error in data fetch";		
+		}
+	}	
+
+	if (isset($_POST['up'])) {
+
+		$date='%-%-'.date("d", strtotime('tomorrow'));
+
+		$value=[];
+
+		$sql="SELECT title,description,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT DISTINCT id FROM category WHERE category_name='Life Event'))) AND date LIKE '$date' ORDER BY date ASC";
+	
+
+		$res=mysqli_query($conn,$sql);
+
+		if ($res) {
+
+			$i=0;
+			while ($row=mysqli_fetch_assoc($res)) {
+				
+				$value[$i]['title']=$row['title'];
+				$value[$i]['description']=$row['description'];
+				$value[$i]['date']=$row['date'];
+				$i++;
+			}
+			
+			$data['tomorrow']=$value;
+
+			$date1='%-%-'.date("d", strtotime('+2 day'));
+			$date2='%-%-'.date("d", strtotime('+3 day'));
+			$date3='%-%-'.date("d", strtotime('+4 day'));
+
+			$up= [];
+
+			$sql="SELECT title,description,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT DISTINCT id FROM category WHERE category_name='Life Event'))) AND (date LIKE '$date1' OR date LIKE '$date2' OR date LIKE '$date3')";
+		
+
+			$res=mysqli_query($conn,$sql);
+
+			if ($res) {
+
+				$i=0;
+				while ($row=mysqli_fetch_assoc($res)) {
+					
+					$up[$i]['title']=$row['title'];
+					$up[$i]['description']=$row['description'];
+					$up[$i]['date']=$row['date'];
+					$i++;
+				}
+				
+				$data['upcoming']=$up;
+
+				echo json_encode($data);
+				//echo $value;
+			}
+			else{
+				echo json_encode("Error in data fetch");		
+			}	
+		}
+		else{
+			echo json_encode("Error in data fetch");		
 		}
 	}	
 

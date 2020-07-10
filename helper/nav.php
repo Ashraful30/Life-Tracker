@@ -1,3 +1,12 @@
+<?php  
+
+	if(!$_SESSION['login_user']){
+
+		header("location:../index.php");
+	}
+
+?>
+
 <nav class="navbar navbar-dark navbar-expand-sm fixed-top">
 	<div class="container">
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">

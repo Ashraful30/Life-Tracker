@@ -12,6 +12,7 @@ $(document).ready(function(){
 	view_life_event();
 	pagination_view_life_event();
 
+
 })
 
 
@@ -88,40 +89,50 @@ function helper_income(){
 			var end;
 			var content='';
 			var pagination='';
-			if (size < per_page) {
+			
+			if (jQuery.isEmptyObject(data.value['data'])) {
 
-				end=size;
-			}
+				content='<h5 class="text-center text-secondary">This month no income history yet</h5>';
+				$('#itable').html(content);	
+			} 
 			else {
 
-				end=per_page;
-			}
+				if (size < per_page) {
 
-			content='<table class="table text-center" style="min-height:500px !important;"> <thead class="thead-dark"> <tr> <th>Title</th><th>Description</th> <th>Amount</th> <th>Date</th> </tr> </thead<tbody>';
-			for (start=0; start < end; start++) { 
-				
-				content += '<tr> <td>'+obj[start]['title']+'</td> <td>'+obj[start]['description']+'</td> <td>'+obj[start]['amount']+'</td> <td>'+obj[start]['date']+'</td> </tr>';
-			}
-			//console.log(data.value['total']);
-			content+='<tr> <td colspan="3" style="font-weight: bold;color:#512DA8;font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8;font-size:20px;">'+total+'</td> </tr>';
-			content+='</tbody></table><br>';
-
-			content+='<nav aria-label="Page navigation example"> <ul class="pagination justify-content-center">';
-
-			if(size > per_page){
-
-				var k=1;
-				for(var j=0; j< Math.ceil(size/per_page); j++){
-
-					content += '<li class="page-item"><button class="page-link page'+k+'" id="ipag" idata-id="'+k+'">'+k+'</button></li>';
-					k++;
+					end=size;
 				}
-			}
+				else {
 
-			content+= '</ul> </nav>';
-			//console.log(content);
-			$('#itable').html(content);
-			$(".page1").css({"background-color":"#007BFF","color":"#fff"});
+					end=per_page;
+				}
+
+				content='<table class="table text-center" style="min-height:500px !important;"> <thead class="thead-dark"> <tr> <th>Title</th><th>Description</th> <th>Amount</th> <th>Date</th> </tr> </thead<tbody>';
+				for (start=0; start < end; start++) { 
+					
+					content += '<tr class="thover"> <td>'+obj[start]['title']+'</td> <td>'+obj[start]['description']+'</td> <td>'+obj[start]['amount']+'</td> <td>'+obj[start]['date']+'</td> </tr>';
+				}
+				//console.log(data.value['total']);
+				content+='<tr class="thover"> <td colspan="3" style="font-weight: bold;color:#512DA8;font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8;font-size:20px;">'+total+'</td> </tr>';
+				content+='</tbody></table><br>';
+
+				content+='<nav aria-label="Page navigation example"> <ul class="pagination justify-content-center">';
+
+				if(size > per_page){
+
+					var k=1;
+					for(var j=0; j< Math.ceil(size/per_page); j++){
+
+						content += '<li class="page-item"><button class="page-link page'+k+'" id="ipag" idata-id="'+k+'">'+k+'</button></li>';
+						k++;
+					}
+				}
+
+				content+= '</ul> </nav>';
+				//console.log(content);
+				$('#itable').html(content);
+				$(".page1").css({"background-color":"#007BFF","color":"#fff"});
+
+			}
 			
 		}
 	})
@@ -170,9 +181,9 @@ function pagination_view_income(){
 
 		for (start; start < end; start++) { 
 			
-			content += '<tr> <td>'+obj[start]['title']+'</td> <td>'+obj[start]['description']+'</td> <td>'+obj[start]['amount']+'</td> <td>'+obj[start]['date']+'</td> </tr>';
+			content += '<tr class="thover"> <td>'+obj[start]['title']+'</td> <td>'+obj[start]['description']+'</td> <td>'+obj[start]['amount']+'</td> <td>'+obj[start]['date']+'</td> </tr>';
 		}
-		content+='<tr> <td colspan="3" style="font-weight: bold;color:#512DA8; font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8; font-size:20px;">'+total+'</td> </tr>';
+		content+='<tr class="thover"> <td colspan="3" style="font-weight: bold;color:#512DA8; font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8; font-size:20px;">'+total+'</td> </tr>';
 		content+='</tbody></table>';
 		$("#itable > table").html(content);
 
@@ -262,40 +273,49 @@ function helper_expense(){
 			var end;
 			var content='';
 			var pagination='';
-			if (expense_size < expense_per_page) {
+			
+			if (jQuery.isEmptyObject(data.value['data'])) {
 
-				end=expense_size;
-			}
-			else {
+				content='<h5 class="text-center text-secondary">This month no expense history yet</h5>';
+				$('#etable').html(content);	
+			} 
+			else{
 
-				end=expense_per_page;
-			}
+				if (expense_size < expense_per_page) {
 
-			content='<table class="table text-center" style="min-height:500px !important;"> <thead class="thead-dark"> <tr> <th>Title</th><th>Description</th> <th>Amount</th> <th>Date</th> </tr> </thead<tbody>';
-			for (start=0; start < end; start++) { 
-				
-				content += '<tr> <td>'+expense[start]['title']+'</td> <td>'+expense[start]['description']+'</td> <td>'+expense[start]['amount']+'</td> <td>'+expense[start]['date']+'</td> </tr>';
-			}
-			//console.log(data.value['total']);
-			content+='<tr> <td colspan="3" style="font-weight: bold;color:#512DA8;font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8;font-size:20px;">'+expense_total+'</td> </tr>';
-			content+='</tbody></table><br>';
-
-			content+='<nav aria-label="Page navigation example"> <ul class="pagination justify-content-center">';
-
-			if(expense_size > expense_per_page){
-
-				var k=1;
-				for(var j=0; j< Math.ceil(expense_size/expense_per_page); j++){
-
-					content += '<li class="page-item"><button class="page-link page'+k+'" id="epag" edata-id="'+k+'">'+k+'</button></li>';
-					k++;
+					end=expense_size;
 				}
-			}
+				else {
 
-			content+= '</ul> </nav>';
-			//console.log(content);
-			$('#etable').html(content);
-			$(".page1").css({"background-color":"#007BFF","color":"#fff"});
+					end=expense_per_page;
+				}
+
+				content='<table class="table text-center" style="min-height:500px !important;"> <thead class="thead-dark"> <tr> <th>Title</th><th>Description</th> <th>Amount</th> <th>Date</th> </tr> </thead<tbody>';
+				for (start=0; start < end; start++) { 
+					
+					content += '<tr class="thover"> <td>'+expense[start]['title']+'</td> <td>'+expense[start]['description']+'</td> <td>'+expense[start]['amount']+'</td> <td>'+expense[start]['date']+'</td> </tr>';
+				}
+				//console.log(data.value['total']);
+				content+='<tr class="thover"> <td colspan="3" style="font-weight: bold;color:#512DA8;font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8;font-size:20px;">'+expense_total+'</td> </tr>';
+				content+='</tbody></table><br>';
+
+				content+='<nav aria-label="Page navigation example"> <ul class="pagination justify-content-center">';
+
+				if(expense_size > expense_per_page){
+
+					var k=1;
+					for(var j=0; j< Math.ceil(expense_size/expense_per_page); j++){
+
+						content += '<li class="page-item"><button class="page-link page'+k+'" id="epag" edata-id="'+k+'">'+k+'</button></li>';
+						k++;
+					}
+				}
+
+				content+= '</ul> </nav>';
+				//console.log(content);
+				$('#etable').html(content);
+				$(".page1").css({"background-color":"#007BFF","color":"#fff"});
+			}
 			
 		}
 	})
@@ -344,9 +364,9 @@ function pagination_view_expense(){
 
 		for (start; start < end; start++) { 
 			
-			content += '<tr> <td>'+expense[start]['title']+'</td> <td>'+expense[start]['description']+'</td> <td>'+expense[start]['amount']+'</td> <td>'+expense[start]['date']+'</td> </tr>';
+			content += '<tr class="thover"> <td>'+expense[start]['title']+'</td> <td>'+expense[start]['description']+'</td> <td>'+expense[start]['amount']+'</td> <td>'+expense[start]['date']+'</td> </tr>';
 		}
-		content+='<tr> <td colspan="3" style="font-weight: bold;color:#512DA8; font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8; font-size:20px;">'+expense_total+'</td> </tr>';
+		content+='<tr class="thover"> <td colspan="3" style="font-weight: bold;color:#512DA8; font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8; font-size:20px;">'+expense_total+'</td> </tr>';
 		content+='</tbody></table>';
 		$("#etable > table").html(content);
 
@@ -390,41 +410,49 @@ function helper_life_event(){
 			var end;
 			var content='';
 			var pagination='';
-			if (life_event_size < life_event_per_page) {
-
-				end=life_event_size;
-			}
-			else {
-
-				end=life_event_per_page;
-			}
-
-			content='<table class="table text-center" style="min-height:500px !important;"> <thead class="thead-dark"> <tr> <th>Title</th><th>Description</th> <th>Date</th> </tr> </thead<tbody>';
-			for (start=0; start < end; start++) { 
-				
-				content += '<tr> <td>'+life_event[start]['title']+'</td> <td>'+life_event[start]['description']+'</td> <td>'+life_event[start]['date']+'</td> </tr>';
-			}
-			//console.log(data.value['total']);
 			
-			content+='</tbody></table><br>';
+			if (jQuery.isEmptyObject(data.value)) {
 
-			content+='<nav aria-label="Page navigation example"> <ul class="pagination justify-content-center">';
+				content='<h5 class="text-center text-secondary">This month no life event history yet</h5>';
+				$('#ltable').html(content);	
+			} 
+			else{
 
-			if(life_event_size > life_event_per_page){
+				if (life_event_size < life_event_per_page) {
 
-				var k=1;
-				for(var j=0; j< Math.ceil(life_event_size/life_event_per_page); j++){
-
-					content += '<li class="page-item"><button class="page-link page'+k+'" id="lpag" ldata-id="'+k+'">'+k+'</button></li>';
-					k++;
+					end=life_event_size;
 				}
-			}
+				else {
 
-			content+= '</ul> </nav>';
-			//console.log(content);
-			$('#ltable').html(content);
-			$(".page1").css({"background-color":"#007BFF","color":"#fff"});
-			
+					end=life_event_per_page;
+				}
+
+				content='<table class="table text-center" style="min-height:500px !important;"> <thead class="thead-dark"> <tr> <th>Title</th><th>Description</th> <th>Date</th> </tr> </thead<tbody>';
+				for (start=0; start < end; start++) { 
+					
+					content += '<tr class="thover"> <td>'+life_event[start]['title']+'</td> <td>'+life_event[start]['description']+'</td> <td>'+life_event[start]['date']+'</td> </tr>';
+				}
+				//console.log(data.value['total']);
+				
+				content+='</tbody></table><br>';
+
+				content+='<nav aria-label="Page navigation example"> <ul class="pagination justify-content-center">';
+
+				if(life_event_size > life_event_per_page){
+
+					var k=1;
+					for(var j=0; j< Math.ceil(life_event_size/life_event_per_page); j++){
+
+						content += '<li class="page-item"><button class="page-link page'+k+'" id="lpag" ldata-id="'+k+'">'+k+'</button></li>';
+						k++;
+					}
+				}
+
+				content+= '</ul> </nav>';
+				//console.log(content);
+				$('#ltable').html(content);
+				$(".page1").css({"background-color":"#007BFF","color":"#fff"});
+			}			
 		}
 	})
 }
@@ -472,7 +500,7 @@ function pagination_view_life_event(){
 
 		for (start; start < end; start++) { 
 			
-			content += '<tr> <td>'+life_event[start]['title']+'</td> <td>'+life_event[start]['description']+'</td> <td>'+life_event[start]['date']+'</td> </tr>';
+			content += '<tr class="thover"> <td>'+life_event[start]['title']+'</td> <td>'+life_event[start]['description']+'</td> <td>'+life_event[start]['date']+'</td> </tr>';
 		}
 
 		content+='</tbody></table>';
@@ -483,5 +511,153 @@ function pagination_view_life_event(){
 		$(".page"+life_event_remove_active).css({"background-color":"#fff","color":"#007BFF"});
 		$(".page"+life_event_add_active).css({"background-color":"#007BFF","color":"#fff"});
 	
+	})
+}
+
+
+
+function home_content(){
+
+	console.log("Before ajax");
+	window.counter=0;
+
+	$.ajax({
+
+		url: 'helper/get_life_event.php',
+		method: 'post',
+		data: {day:2},
+		success: function(data){
+			//console.log(data);
+			data = $.parseJSON(data);
+
+			if (jQuery.isEmptyObject(data)) {
+
+				content='<h5 class="text-center text-primary">There is no event today</h5>';
+			} 
+			else {
+
+				var end = data.length;
+				counter=end;
+
+				content='<table class="table text-center"><tbody>';
+				for (start=0; start < end; start++) { 
+					
+					content += '<tr class="thover"> <td>'+data[start]['title']+' <span class="badge badge-danger">Today</span> </td><td>'+data[start]['date']+'</td> </tr>';
+				}
+				//console.log(data.value['total']);
+				
+				content+='</tbody></table>';
+			}
+			
+			$("#today").html(content);
+		}
+	})
+	//console.log(counter);
+
+	$.ajax({
+
+		url: 'helper/get_life_event.php',
+		method: 'post',
+		data: {up:2},
+		success: function(data){
+			//console.log(data);
+			data = $.parseJSON(data);
+
+			//console.log(data.tomorrow[0]);
+
+			if (jQuery.isEmptyObject(data)) {
+
+				content='<h5 class="text-center text-primary">There is no upcoming event</h5>';
+			} 
+			else {
+
+				var end = data.tomorrow.length;
+				counter+=end;
+
+				content='<table class="table text-center"><tbody>';
+				for (start=0; start < end; start++) { 
+					
+					content += '<tr class="thover"> <td>'+data.tomorrow[start]['title']+' <span class="badge badge-warning">Tomorrow</span> </td><td>'+data.tomorrow[start]['date']+'</td> </tr>';
+				}
+				
+				end = data.upcoming.length;
+				counter+=data.upcoming.length;
+
+				for (start=0; start < end; start++) { 
+					
+					content += '<tr class="thover"> <td>'+data.upcoming[start]['title']+' <span class="badge badge-primary">Upcoming</span> </td><td>'+data.upcoming[start]['date']+'</td> </tr>';
+				}
+				
+				content+='</tbody></table>';
+			}
+			
+			$("#upcoming").html(content);
+
+
+			$.ajax({
+
+				url: 'helper/get_income.php',
+				method: 'post',
+				data: {home_income:counter},
+				success: function(data){
+					//console.log(data);
+					data = $.parseJSON(data);
+
+					//console.log(data);
+
+					if (jQuery.isEmptyObject(data)) {
+
+						content='<h5 class="text-center text-primary">There is income history</h5>';
+					} 
+					else {
+
+						content='<table class="table text-center"><tbody>';
+
+						for (start=0; start < data.length; start++) { 
+							
+							content += '<tr class="thover"> <td>'+data[start]['title']+' </td><td>'+data[start]['amount']+' <span>৳</span></td><td>'+data[start]['date']+'</td> </tr>';
+							
+						}
+						
+						content+='</tbody></table>';
+					}
+					
+					$("#home_income").html(content);
+				}
+			})
+
+
+			$.ajax({
+
+				url: 'helper/get_expense.php',
+				method: 'post',
+				data: {home_income:counter},
+				success: function(data){
+					//console.log(data);
+					data = $.parseJSON(data);
+
+					//console.log(data);
+
+					if (jQuery.isEmptyObject(data)) {
+
+						content='<h5 class="text-center text-primary">There is no expense history</h5>';
+					} 
+					else {
+
+						content='<table class="table text-center"><tbody>';
+
+						for (start=0; start < data.length; start++) { 
+							
+							content += '<tr class="thover"> <td>'+data[start]['title']+' </td><td>'+data[start]['amount']+' <span>৳</span></td><td>'+data[start]['date']+'</td> </tr>';
+							
+						}
+						
+						content+='</tbody></table>';
+					}
+					
+					$("#home_expense").html(content);
+				}
+			})
+		}
 	})
 }

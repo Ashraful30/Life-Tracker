@@ -1,3 +1,12 @@
+<?php 
+
+	if(!$_SESSION['login_user']){
+
+		header("location:../index.php");
+	}
+
+?>
+
 <footer class="footer">
 	<div class="container">				
 		<div class="row justify-content-center">

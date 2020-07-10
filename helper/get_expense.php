@@ -3,6 +3,11 @@
 	session_start();
 	include 'db_connect.php';
 
+	if(!$_SESSION['login_user']){
+
+		header("location:../index.php");
+	}
+
 	if (isset($_POST['pID'])) {
 
 		$id=$_POST['pID'];
@@ -107,10 +112,10 @@
 	if(isset($_POST["update_id"])){
 
 		$id=$_POST["update_id"];
-		$title=$_POST["update_title"];
+		$title=addslashes($_POST["update_title"]);
 		$amount=$_POST["update_amount"];
 		$date=$_POST["update_date"];
-		$description=$_POST["update_description"];
+		$description=addslashes($_POST["update_description"]);
 		$parent_id=$_POST["update_parent_id"];
 
 		
@@ -248,6 +253,37 @@
 		}
 		else{
 			echo "Error in data fetch";	
+		}
+	}
+
+	if (isset($_POST['home_income'])) {
+
+		$data_limit=$_POST['home_income']+2;
+
+		//echo json_encode("Error in data fetch");
+
+		$value=[];
+		
+		$sql="SELECT title,amount,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT DISTINCT id FROM category WHERE category_name='Expense'))) ORDER BY date DESC LIMIT $data_limit";
+		
+		//echo json_encode($_POST['home_income']);
+		$res=mysqli_query($conn,$sql);
+
+		if ($res) {
+			$i=0;
+			while ($row=mysqli_fetch_assoc($res)) {
+				
+				$value[$i]['title']=$row['title'];
+				$value[$i]['date']=$row['date'];
+				$value[$i]['amount']=$row['amount'];
+				$i++;
+			}
+			//echo $value;
+			echo json_encode($value);
+			//echo $value;
+		}
+		else{
+			echo json_encode("Error in data fetch");	
 		}
 	}
 
