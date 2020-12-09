@@ -1,6 +1,7 @@
 <?php 
 
 	session_start();
+	include 'db_connect.php';
 
 	if(!$_SESSION['login_user']){
 
@@ -13,6 +14,10 @@
 		session_destroy();
 		header("location:../index.php");
 	}
+
+	$sql="SELECT * FROM category WHERE parent_id IN(SELECT id FROM category WHERE category_name='Life Event' AND parent_id IS null) ORDER BY category_name";
+	$res=mysqli_query($conn,$sql);
+	
  ?>
 
 
@@ -58,46 +63,24 @@
 					<form action="" method="post">
 						
 	                 	<div class="form-group row">
-	                        <label for="description" class="col-4 offset-sm-2 col-sm-2 col-from-label text-center" ><h5> Life Event </h5></label>
-	                        <div class="col-4 col-sm-2">
-								<select class="form-control" name="month" id="lm">
-
-									<?php $date=date('m'); ?>
-									
-									<option value="0" >All Months</option>
-									<option value="01" <?php if($date=='01'){echo "selected='selected'";} ?>>January</option>
-									<option value="02" <?php if($date=='02'){echo "selected='selected'";} ?>>February</option>
-									<option value="03" <?php if($date=='03'){echo "selected='selected'";} ?>>March</option>
-									<option value="04" <?php if($date=='04'){echo "selected='selected'";} ?>>April</option>
-									<option value="05" <?php if($date=='05'){echo "selected='selected'";} ?>>May</option>
-									<option value="06" <?php if($date=='06'){echo "selected='selected'";} ?>>June</option>
-									<option value="07" <?php if($date=='07'){echo "selected='selected'";} ?>>July</option>
-									<option value="08" <?php if($date=='08'){echo "selected='selected'";} ?>>August</option>
-									<option value="09" <?php if($date=='09'){echo "selected='selected'";} ?>>September</option>
-									<option value="10" <?php if($date=='10'){echo "selected='selected'";} ?>>October</option>
-									<option value="11" <?php if($date=='11'){echo "selected='selected'";} ?>>November</option>
-									<option value="12" <?php if($date=='12'){echo "selected='selected'";} ?>>December</option>
-	                            </select>
-	                        </div>
-	                        <div class="col-4 col-sm-2">
-								<select class="form-control" id="ly">
-									<option value="-1" >Birthday</option>
-									<?php 
-
-										$date=date('Y');
-
-										for ($i=2020; $i <= $date; $i++) { 
-
-											echo '<option value="'.$i.'"'; if($i==$date){echo "selected='selected'";} echo '>'.$i.'</option>';
+	                        <label for="description" class="col-4 col-sm-2 offset-sm-1 col-from-label text-center" ><h5> Life Event </h5></label>
+	                        <div class="col-8 col-sm-4">
+								<select class="form-control" name="category" id="cat">
+									<option value="all" selected>All Life Event</option>
+									<?php
+										if ($res) {
+											while ($row=mysqli_fetch_assoc($res)) {
+												echo '<option value="'.$row['id'].'">'.$row['category_name'].'</option>';
+											}
 										}
-
 									?>
+									
 	                            </select>
 	                        </div>
 
 							<label for="description" class="col-4 col-sm-1 col-from-label text-center" ><p style="font-size: 18px;"> Show</p></label>
 
-	                        <div class="col-4 col-sm-1">
+	                        <div class="col-8 col-sm-2">
 
 								<select class="form-control" id="lper_page">
 									

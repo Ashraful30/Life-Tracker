@@ -40,7 +40,7 @@
 				$value.='<tr class="thover">
 							<td>'.$row['title'].'</td>
 							<td>'.$row['description'].'</td>
-							<td>'.$row['amount'].'</td>
+							<td>'.$row['amount'].' ৳'.'</td>
 							<td>'.$row['date'].'</td>
 							<td>'.$category.'</td>
 							<td><button type="button" class="btn btn-primary" id="edit_income" data-id='.$row['id'].'><i class="fas fa-edit"></i> Edit</button>
@@ -263,7 +263,7 @@
 
 		$value=[];
 		
-		$sql="SELECT title,amount,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT DISTINCT id FROM category WHERE category_name='Income'))) ORDER BY date DESC LIMIT $data_limit";
+		$sql="SELECT title,description,amount,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT DISTINCT id FROM category WHERE category_name='Income'))) ORDER BY date DESC LIMIT $data_limit";
 		
 		//echo json_encode($_POST['home_income']);
 		$res=mysqli_query($conn,$sql);
@@ -274,6 +274,7 @@
 				
 				$value[$i]['title']=$row['title'];
 				$value[$i]['date']=$row['date'];
+				$value[$i]['description']=$row['description'];
 				$value[$i]['amount']=$row['amount'];
 				$i++;
 			}

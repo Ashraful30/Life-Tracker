@@ -40,7 +40,7 @@
 				$value.='<tr class="thover">
 							<td>'.$row['title'].'</td>
 							<td>'.$row['description'].'</td>
-							<td>'.$row['amount'].'</td>
+							<td>'.$row['amount'].' ৳'.'</td>
 							<td>'.$row['date'].'</td>
 							<td>'.$category.'</td>
 							<td><button type="button" class="btn btn-primary" id="edit_expense" data-id='.$row['id'].'><i class="fas fa-edit"></i> Edit</button>

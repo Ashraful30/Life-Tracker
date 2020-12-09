@@ -146,42 +146,16 @@
 	}
 
 
-	if (isset($_POST['month'])) {
+	if (isset($_POST['cat'])) {
 
-		$month=$_POST['month'];
-		$year=$_POST['year'];
-		$total=0;
-
-		$from=$year.'-'.$month.'-01';
-		$to=$year.'-'.$month.'-31';
-
+		$cat=$_POST['cat'];
 		$value=[];
 		
-		if ($year==-1) {
-
-			if ($month==0) {
-
-				$from='1950-01-01';
-				$to=date('Y').'-12-31';
-
-				$sql="SELECT title,description,date FROM `event` WHERE parent_id=(SELECT DISTINCT id FROM category WHERE category_name='Birthday') AND date BETWEEN '$from' AND '$to' ORDER BY date DESC";
-			}
-			else{
-
-				$date='%-'.$month.'-%';
-
-				$sql="SELECT title,description,date FROM `event` WHERE parent_id=(SELECT DISTINCT id FROM category WHERE category_name='Birthday') AND date LIKE '$date' ORDER BY date DESC"; 
-			}
-		}
-		else if ($month==0) {
-
-			$from=$year.'-01-01';
-			$to=$year.'-12-31';
-
-			$sql="SELECT title,description,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT id FROM category WHERE category_name='Life Event'))) AND date BETWEEN '$from' AND '$to' ORDER BY date DESC";
+		if($cat == 'all'){
+			$sql="SELECT title,description,date FROM `event` WHERE parent_id IN (SELECT id FROM category WHERE parent_id IN(SELECT id FROM category WHERE category_name='Life Event' AND parent_id IS null)) ORDER BY YEAR(`date`) DESC";
 		}
 		else{
-			$sql="SELECT title,description,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT id FROM category WHERE category_name='Life Event'))) AND date BETWEEN '$from' AND '$to' ";
+			$sql="SELECT title,description,date FROM `event` WHERE parent_id='$cat' ORDER BY YEAR(`date`) DESC";
 		}
 
 		$res=mysqli_query($conn,$sql);
@@ -208,8 +182,9 @@
 
 	if (isset($_POST['day'])) {
 
-		$date='%-%-'.date('d');
-
+		date_default_timezone_set("Asia/Dhaka");
+		$date='%-'.date('m').'-'.date('d');
+		//echo $date;
 		$value=[];
 
 		$sql="SELECT title,description,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT DISTINCT id FROM category WHERE category_name='Life Event'))) AND date LIKE '$date' ORDER BY date ASC";
@@ -237,18 +212,12 @@
 	}	
 
 	if (isset($_POST['up'])) {
-
-		$date='%-%-'.date("d", strtotime('tomorrow'));
-
+		date_default_timezone_set("Asia/Dhaka");
+		$date='%-'.date('m').'-'.date("d", strtotime('tomorrow'));
 		$value=[];
-
 		$sql="SELECT title,description,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT DISTINCT id FROM category WHERE category_name='Life Event'))) AND date LIKE '$date' ORDER BY date ASC";
-	
-
 		$res=mysqli_query($conn,$sql);
-
 		if ($res) {
-
 			$i=0;
 			while ($row=mysqli_fetch_assoc($res)) {
 				
@@ -257,20 +226,12 @@
 				$value[$i]['date']=$row['date'];
 				$i++;
 			}
-			
 			$data['tomorrow']=$value;
-
-			$date1='%-%-'.date("d", strtotime('+2 day'));
-			$date2='%-%-'.date("d", strtotime('+3 day'));
-			$date3='%-%-'.date("d", strtotime('+4 day'));
-
+			$day=date('d');
+			$month=date('m');
 			$up= [];
-
-			$sql="SELECT title,description,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT DISTINCT id FROM category WHERE category_name='Life Event'))) AND (date LIKE '$date1' OR date LIKE '$date2' OR date LIKE '$date3')";
-		
-
+			$sql="SELECT title,description,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT DISTINCT id FROM category WHERE category_name='Life Event'))) AND MONTH(`date`) = '$month' AND DAY(`date`) > '$day'  ORDER BY DAY(`date`) ASC ";
 			$res=mysqli_query($conn,$sql);
-
 			if ($res) {
 
 				$i=0;
@@ -280,6 +241,42 @@
 					$up[$i]['description']=$row['description'];
 					$up[$i]['date']=$row['date'];
 					$i++;
+				}
+				if($i < 11){
+
+					$sql="SELECT title,description,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT DISTINCT id FROM category WHERE category_name='Life Event'))) AND MONTH(`date`) > '$month' ORDER BY MONTH(`date`) ASC ";
+					$res=mysqli_query($conn,$sql);
+					if ($res) {
+						while ($row=mysqli_fetch_assoc($res)) {
+							
+							$up[$i]['title']=$row['title'];
+							$up[$i]['description']=$row['description'];
+							$up[$i]['date']=$row['date'];
+							$i++;
+
+							if($i == 10){
+								break;
+							}
+						}
+
+					}
+					if($i < 11){
+
+						$sql="SELECT title,description,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT DISTINCT id FROM category WHERE category_name='Life Event'))) AND MONTH(`date`) >=1 AND MONTH(`date`) < '$month' ORDER BY MONTH(`date`) ASC ";
+						$res=mysqli_query($conn,$sql);
+						if ($res) {
+							while ($row=mysqli_fetch_assoc($res)) {
+								
+								$up[$i]['title']=$row['title'];
+								$up[$i]['description']=$row['description'];
+								$up[$i]['date']=$row['date'];
+								$i++;
+								if($i == 10){
+									break;
+								}
+							}	
+						}
+					}
 				}
 				
 				$data['upcoming']=$up;

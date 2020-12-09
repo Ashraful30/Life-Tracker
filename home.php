@@ -127,11 +127,19 @@
 	<div class="container-fluid">
 		
 		<div class="row-content">
+
 			<div class="row justify-content-center">
-				<h5 class="text-center pt-1 pb-1 pl-2 pr-2" style="font-family: fantasy;background: #512DEB;color: #fff;"><?php echo date('D').', '.date('M').' '.date('d').', '.date('Y'); ?></h5>
+
+				<h4 class="text-center pt-1 pb-1" id="clock" style="font-family: tahoma;background: #512DA8;color: #fff;margin-bottom: 0px;border-bottom: 2px solid #5E3AB5;width: 200px;"></h4>
 			</div>
+
+			<div class="row justify-content-center">
+
+				<h5 class="text-center pt-1 pb-1" style="font-family: tahoma;background: #512DA8;color: #fff;width: 200px;"><?php date_default_timezone_set("Asia/Dhaka"); echo date('D').', '.date('M').' '.date('d').', '.date('Y'); ?></h5>
+			</div>
+
 			<div class="row pt-4">
-				<div class="col-12 col-sm-4">
+				<div class="col-12 col-sm-10 offset-sm-1">
 					<div class="row justify-content-center">
 						<div class="card" style="width: 100%;">
 							<div class="card-header text-center" style="background: #4925A0;color: #fff;">
@@ -148,7 +156,9 @@
 							
 						</div>
 					</div>
+				</div>
 
+				<div class="col-12 col-sm-10 offset-sm-1">
 					<div class="row justify-content-center">
 						<div class="card" style="width: 100%;">
 							<div class="card-header text-center" style="background: #4925A0;color: #fff;">
@@ -167,7 +177,7 @@
 					</div>
 				</div>
 
-				<div class="col-12 col-sm-4">
+				<div class="col-12 col-sm-10 offset-sm-1">
 					<div class="row justify-content-center">
 						<div class="card" style="width: 100%;">
 							<div class="card-header text-center" style="background: #4925A0;color: #fff;">
@@ -186,7 +196,7 @@
 					</div>
 				</div>
 
-				<div class="col-12 col-sm-4">
+				<div class="col-12 col-sm-10 offset-sm-1">
 					<div class="row justify-content-center">
 						<div class="card" style="width: 100%;">
 							<div class="card-header text-center" style="background: #4925A0;color: #fff;">

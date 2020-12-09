@@ -12,7 +12,7 @@ $(document).ready(function(){
 	view_life_event();
 	pagination_view_life_event();
 
-
+	clock();
 })
 
 
@@ -92,7 +92,7 @@ function helper_income(){
 			
 			if (jQuery.isEmptyObject(data.value['data'])) {
 
-				content='<h5 class="text-center text-secondary">This month no income history yet</h5>';
+				content='<h5 class="text-center text-secondary">This month no income history yet.</h5>';
 				$('#itable').html(content);	
 			} 
 			else {
@@ -106,13 +106,13 @@ function helper_income(){
 					end=per_page;
 				}
 
-				content='<table class="table text-center" style="min-height:500px !important;"> <thead class="thead-dark"> <tr> <th>Title</th><th>Description</th> <th>Amount</th> <th>Date</th> </tr> </thead<tbody>';
+				content='<table class="table text-center"> <thead class="thead-dark"> <tr> <th>Title</th><th>Description</th> <th>Amount</th> <th>Date</th> </tr> </thead><tbody>';
 				for (start=0; start < end; start++) { 
 					
-					content += '<tr class="thover"> <td>'+obj[start]['title']+'</td> <td>'+obj[start]['description']+'</td> <td>'+obj[start]['amount']+'</td> <td>'+obj[start]['date']+'</td> </tr>';
+					content += '<tr class="thover"> <td>'+obj[start]['title']+'</td> <td>'+obj[start]['description']+'</td> <td>'+obj[start]['amount']+' ৳'+'</td> <td>'+get_date(obj[start]['date'])+'</td> </tr>';
 				}
 				//console.log(data.value['total']);
-				content+='<tr class="thover"> <td colspan="3" style="font-weight: bold;color:#512DA8;font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8;font-size:20px;">'+total+'</td> </tr>';
+				content+='<tr class="thover"> <td colspan="3" style="font-weight: bold;color:#512DA8;font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8;font-size:20px;">'+total+' ৳'+'</td> </tr>';
 				content+='</tbody></table><br>';
 
 				content+='<nav aria-label="Page navigation example"> <ul class="pagination justify-content-center">';
@@ -177,13 +177,13 @@ function pagination_view_income(){
 		}
 		var start=(page*per_page)-per_page;
 		// echo ' Start '.$start;
-		var content= '<table class="table text-center"> <thead class="thead-dark"> <tr><th>Title</th><th>Description</th><th>Amount</th><th>Date</th> </tr> </thead<tbody>';
+		var content= '<table class="table text-center"> <thead class="thead-dark"> <tr><th>Title</th><th>Description</th><th>Amount</th><th>Date</th> </tr> </thead><tbody>';
 
 		for (start; start < end; start++) { 
 			
-			content += '<tr class="thover"> <td>'+obj[start]['title']+'</td> <td>'+obj[start]['description']+'</td> <td>'+obj[start]['amount']+'</td> <td>'+obj[start]['date']+'</td> </tr>';
+			content += '<tr class="thover"> <td>'+obj[start]['title']+'</td> <td>'+obj[start]['description']+'</td> <td>'+obj[start]['amount']+' ৳'+'</td> <td>'+get_date(obj[start]['date'])+'</td> </tr>';
 		}
-		content+='<tr class="thover"> <td colspan="3" style="font-weight: bold;color:#512DA8; font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8; font-size:20px;">'+total+'</td> </tr>';
+		content+='<tr class="thover"> <td colspan="3" style="font-weight: bold;color:#512DA8; font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8; font-size:20px;">'+total+' ৳'+'</td> </tr>';
 		content+='</tbody></table>';
 		$("#itable > table").html(content);
 
@@ -276,7 +276,7 @@ function helper_expense(){
 			
 			if (jQuery.isEmptyObject(data.value['data'])) {
 
-				content='<h5 class="text-center text-secondary">This month no expense history yet</h5>';
+				content='<h5 class="text-center text-secondary">This month no expense history yet.</h5>';
 				$('#etable').html(content);	
 			} 
 			else{
@@ -290,13 +290,13 @@ function helper_expense(){
 					end=expense_per_page;
 				}
 
-				content='<table class="table text-center" style="min-height:500px !important;"> <thead class="thead-dark"> <tr> <th>Title</th><th>Description</th> <th>Amount</th> <th>Date</th> </tr> </thead<tbody>';
+				content='<table class="table text-center"> <thead class="thead-dark"> <tr> <th>Title</th><th>Description</th> <th>Amount</th> <th>Date</th> </tr> </thead><tbody>';
 				for (start=0; start < end; start++) { 
 					
-					content += '<tr class="thover"> <td>'+expense[start]['title']+'</td> <td>'+expense[start]['description']+'</td> <td>'+expense[start]['amount']+'</td> <td>'+expense[start]['date']+'</td> </tr>';
+					content += '<tr class="thover"> <td>'+expense[start]['title']+'</td> <td>'+expense[start]['description']+'</td> <td>'+expense[start]['amount']+' ৳'+'</td> <td>'+get_date(expense[start]['date'])+'</td> </tr>';
 				}
 				//console.log(data.value['total']);
-				content+='<tr class="thover"> <td colspan="3" style="font-weight: bold;color:#512DA8;font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8;font-size:20px;">'+expense_total+'</td> </tr>';
+				content+='<tr class="thover"> <td colspan="3" style="font-weight: bold;color:#512DA8;font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8;font-size:20px;">'+expense_total+' ৳'+'</td> </tr>';
 				content+='</tbody></table><br>';
 
 				content+='<nav aria-label="Page navigation example"> <ul class="pagination justify-content-center">';
@@ -360,13 +360,13 @@ function pagination_view_expense(){
 		}
 		var start=(page*expense_per_page)-expense_per_page;
 		// echo ' Start '.$start;
-		var content= '<table class="table text-center"> <thead class="thead-dark"> <tr><th>Title</th><th>Description</th><th>Amount</th><th>Date</th> </tr> </thead<tbody>';
+		var content= '<table class="table text-center"> <thead class="thead-dark"><th>Title</th><th>Description</th><th>Amount</th><th>Date</th></thead><tbody>';
 
 		for (start; start < end; start++) { 
 			
-			content += '<tr class="thover"> <td>'+expense[start]['title']+'</td> <td>'+expense[start]['description']+'</td> <td>'+expense[start]['amount']+'</td> <td>'+expense[start]['date']+'</td> </tr>';
+			content += '<tr class="thover"> <td>'+expense[start]['title']+'</td> <td>'+expense[start]['description']+'</td> <td>'+expense[start]['amount']+' ৳'+'</td> <td>'+get_date(expense[start]['date'])+'</td> </tr>';
 		}
-		content+='<tr class="thover"> <td colspan="3" style="font-weight: bold;color:#512DA8; font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8; font-size:20px;">'+expense_total+'</td> </tr>';
+		content+='<tr class="thover"> <td colspan="3" style="font-weight: bold;color:#512DA8; font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8; font-size:20px;">'+expense_total+' ৳'+'</td> </tr>';
 		content+='</tbody></table>';
 		$("#etable > table").html(content);
 
@@ -389,15 +389,14 @@ function pagination_view_expense(){
 
 function helper_life_event(){
 
-	var month = $("#lm").val();
-	var year = $("#ly").val();
+	var category = $("#cat").val();
 	window.life_event_per_page = $("#lper_page").val();
 	//console.log(month+' '+year);
 	$.ajax({
 
 		url: 'get_life_event.php',
 		method: 'post',
-		data: {month:month,year:year},
+		data: {cat:category},
 		success: function(data){
 
 			//console.log(data);
@@ -413,7 +412,7 @@ function helper_life_event(){
 			
 			if (jQuery.isEmptyObject(data.value)) {
 
-				content='<h5 class="text-center text-secondary">This month no life event history yet</h5>';
+				content='<h5 class="text-center text-secondary">This month no life event history yet.</h5>';
 				$('#ltable').html(content);	
 			} 
 			else{
@@ -427,10 +426,10 @@ function helper_life_event(){
 					end=life_event_per_page;
 				}
 
-				content='<table class="table text-center" style="min-height:500px !important;"> <thead class="thead-dark"> <tr> <th>Title</th><th>Description</th> <th>Date</th> </tr> </thead<tbody>';
+				content='<table class="table text-center"> <thead class="thead-dark"><th>Title</th><th>Description</th> <th>Date</th></thead><tbody>';
 				for (start=0; start < end; start++) { 
 					
-					content += '<tr class="thover"> <td>'+life_event[start]['title']+'</td> <td>'+life_event[start]['description']+'</td> <td>'+life_event[start]['date']+'</td> </tr>';
+					content += '<tr class="thover"> <td>'+life_event[start]['title']+'</td> <td>'+life_event[start]['description']+'</td> <td>'+get_date(life_event[start]['date'])+'</td> </tr>';
 				}
 				//console.log(data.value['total']);
 				
@@ -460,12 +459,7 @@ function helper_life_event(){
 
 function view_life_event(){
 
-	$('#lm').on('change', function() {
-
-		helper_life_event();
-	}); 
-
-	$('#ly').on('change', function() {
+	$('#cat').on('change', function() {
 
 		helper_life_event();
 	}); 
@@ -496,11 +490,11 @@ function pagination_view_life_event(){
 		}
 		var start=(page*life_event_per_page)-life_event_per_page;
 		// echo ' Start '.$start;
-		var content= '<table class="table text-center"> <thead class="thead-dark"> <tr><th>Title</th><th>Description</th><th>Date</th> </tr> </thead<tbody>';
+		var content= '<table class="table text-center"> <thead class="thead-dark"> <tr><th>Title</th><th>Description</th><th>Date</th> </tr> </thead><tbody>';
 
 		for (start; start < end; start++) { 
 			
-			content += '<tr class="thover"> <td>'+life_event[start]['title']+'</td> <td>'+life_event[start]['description']+'</td> <td>'+life_event[start]['date']+'</td> </tr>';
+			content += '<tr class="thover"> <td>'+life_event[start]['title']+'</td> <td>'+life_event[start]['description']+'</td> <td>'+get_date(life_event[start]['date'])+'</td> </tr>';
 		}
 
 		content+='</tbody></table>';
@@ -518,7 +512,7 @@ function pagination_view_life_event(){
 
 function home_content(){
 
-	console.log("Before ajax");
+	//console.log("Before ajax");
 	window.counter=0;
 
 	$.ajax({
@@ -529,20 +523,21 @@ function home_content(){
 		success: function(data){
 			//console.log(data);
 			data = $.parseJSON(data);
-
+			//console.log(data);
 			if (jQuery.isEmptyObject(data)) {
 
-				content='<h5 class="text-center text-primary">There is no event today</h5>';
+				content='<h5 class="text-center text-primary" style="font-family: fantasy;">There is no event today.</h5>';
 			} 
 			else {
 
 				var end = data.length;
 				counter=end;
 
-				content='<table class="table text-center"><tbody>';
+				content='<table class="table text-center"><thead><th>Title</th><th>Description</th><th>Date</th></thead><tbody>';
 				for (start=0; start < end; start++) { 
 					
-					content += '<tr class="thover"> <td>'+data[start]['title']+' <span class="badge badge-danger">Today</span> </td><td>'+data[start]['date']+'</td> </tr>';
+					data[start]['date']=get_month(data[start]['date']);
+					content += '<tr class="thover"> <td>'+data[start]['title']+' <span class="badge badge-danger">Today</span> </td><td>'+data[start]['description']+'</td><td>'+data[start]['date']+'</td> </tr>';
 				}
 				//console.log(data.value['total']);
 				
@@ -567,17 +562,17 @@ function home_content(){
 
 			if (jQuery.isEmptyObject(data)) {
 
-				content='<h5 class="text-center text-primary">There is no upcoming event</h5>';
+				content='<h5 class="text-center text-primary" style="font-family: fantasy;">There is no upcoming event.</h5>';
 			} 
 			else {
 
 				var end = data.tomorrow.length;
 				counter+=end;
 
-				content='<table class="table text-center"><tbody>';
+				content='<table class="table text-center"><thead><th>Title</th><th>Description</th><th>Date</th></thead><tbody>';
 				for (start=0; start < end; start++) { 
 					
-					content += '<tr class="thover"> <td>'+data.tomorrow[start]['title']+' <span class="badge badge-warning">Tomorrow</span> </td><td>'+data.tomorrow[start]['date']+'</td> </tr>';
+					content += '<tr class="thover"> <td>'+data.tomorrow[start]['title']+' <span class="badge badge-warning">Tomorrow</span> </td><td>'+data.tomorrow[start]['description']+'</td><td>'+get_month(data.tomorrow[start]['date'])+'</td> </tr>';
 				}
 				
 				end = data.upcoming.length;
@@ -585,7 +580,7 @@ function home_content(){
 
 				for (start=0; start < end; start++) { 
 					
-					content += '<tr class="thover"> <td>'+data.upcoming[start]['title']+' <span class="badge badge-primary">Upcoming</span> </td><td>'+data.upcoming[start]['date']+'</td> </tr>';
+					content += '<tr class="thover"> <td>'+data.upcoming[start]['title']+' <span class="badge badge-primary">Upcoming</span> </td><td>'+data.upcoming[start]['description']+'</td><td>'+get_month(data.upcoming[start]['date'])+'</td> </tr>';
 				}
 				
 				content+='</tbody></table>';
@@ -607,15 +602,15 @@ function home_content(){
 
 					if (jQuery.isEmptyObject(data)) {
 
-						content='<h5 class="text-center text-primary">There is income history</h5>';
+						content='<h5 class="text-center text-primary" style="font-family: fantasy;">There is income history</h5>';
 					} 
 					else {
 
-						content='<table class="table text-center"><tbody>';
-
+						content='<table class="table text-center"><thead><th>Title</th><th>Description</th><th>Amount</th><th>Date</th></thead><tbody>';
+				
 						for (start=0; start < data.length; start++) { 
-							
-							content += '<tr class="thover"> <td>'+data[start]['title']+' </td><td>'+data[start]['amount']+' <span>৳</span></td><td>'+data[start]['date']+'</td> </tr>';
+
+							content += '<tr class="thover"> <td>'+data[start]['title']+' </td><td>'+data[start]['description']+' <span>৳</span></td><td>'+data[start]['amount']+'</td><td>'+get_month(data[start]['date'])+'</td> </tr>';
 							
 						}
 						
@@ -640,15 +635,15 @@ function home_content(){
 
 					if (jQuery.isEmptyObject(data)) {
 
-						content='<h5 class="text-center text-primary">There is no expense history</h5>';
+						content='<h5 class="text-center text-primary" style="font-family: fantasy;">There is no expense history yet.</h5>';
 					} 
 					else {
 
-						content='<table class="table text-center"><tbody>';
+						content='<table class="table text-center"><thead><th>Title</th><th>Amount</th><th>Description</th><th>Date</th></thead><tbody>';
 
 						for (start=0; start < data.length; start++) { 
 							
-							content += '<tr class="thover"> <td>'+data[start]['title']+' </td><td>'+data[start]['amount']+' <span>৳</span></td><td>'+data[start]['date']+'</td> </tr>';
+							content += '<tr class="thover"> <td>'+data[start]['title']+' </td><td>'+data[start]['amount']+' <span>৳</span></td><td>'+data[start]['description']+'</td><td>'+get_month(data[start]['date'])+'</td> </tr>';
 							
 						}
 						
@@ -660,4 +655,113 @@ function home_content(){
 			})
 		}
 	})
+}
+
+
+function get_month(data){
+
+	//console.log(data);
+	var month;
+	var date=data.split('-');
+
+	if (date[1]=='01'){
+
+		month = 'Jan';
+
+	} else if(date[1]=='02'){
+
+		month = 'Feb';
+
+	} else if(date[1]=='03'){
+
+		month = 'Mar';
+
+	} else if(date[1]=='04'){
+
+		month = 'Apr';
+
+	} else if(date[1]=='05'){
+
+		month = 'May';
+
+	} else if(date[1]=='06'){
+
+		month = 'Jun';
+
+	} else if(date[1]=='07'){
+
+		month = 'Jul';
+
+	} else if(date[1]=='08'){
+
+		month = 'Aug';
+
+	} else if(date[1]=='09'){
+
+		month = 'Sep';
+
+	} else if(date[1]=='10'){
+
+		month = 'Oct';
+
+	} else if(date[1]=='11'){
+
+		month = 'Nov';
+
+	} else {
+
+		month = 'Dec';
+
+	}
+
+	return date[2]+' '+month+', '+date[0];
+}
+
+function get_date(data){
+
+	data=data.split('-');
+
+	return data[2]+'-'+data[1]+'-'+data[0];
+}
+
+
+function clock(){
+
+	function showTime(){
+		// to get current time/ date.
+		var date = new Date();
+		// to get the current hour
+		var h = date.getHours();
+		// to get the current minutes
+		var m = date.getMinutes();
+		//to get the current second
+		var s = date.getSeconds();
+		// AM, PM setting
+		var session = "AM"; 
+
+		//conditions for times behavior 
+		if ( h == 0 ) {
+			h = 12;
+		}
+
+		if( h >= 12 ){
+			session = "PM";
+		}
+
+		if ( h > 12 ){
+			h = h - 12;
+		}
+
+		m = ( m < 10 ) ? m = "0" + m : m;
+		s = ( s < 10 ) ? s = "0" + s : s;
+
+		//putting time in one variable
+		var time = h + ":" + m + ":" + s + " " + session;
+		//putting time in our div
+
+		$('#clock').html(time); 
+		//to change time in every seconds
+		setTimeout( showTime, 1000 );
+	}
+	showTime();
 }
