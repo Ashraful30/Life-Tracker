@@ -34,7 +34,7 @@ function income_counter(){
 				  step: function() {
 				    // What todo on every count
 				    //console.log(Math.floor(this.countNum));
-				    $('#itotal').html(Math.ceil(this.countNum)+' ৳');
+				    $('#itotal').html(Math.ceil(this.countNum)+' Tk');
 				  }
 				});
 			});
@@ -46,7 +46,7 @@ function income_counter(){
 				  step: function() {
 				    // What todo on every count
 				    //console.log(Math.floor(this.countNum));
-				    $('#iyear').html(Math.ceil(this.countNum)+' ৳');
+				    $('#iyear').html(Math.ceil(this.countNum)+' Tk');
 				  }
 				});
 			});
@@ -58,7 +58,7 @@ function income_counter(){
 				  step: function() {
 				    // What todo on every count
 				    //console.log(Math.floor(this.countNum));
-				    $('#imonth').html(Math.ceil(this.countNum)+' ৳');
+				    $('#imonth').html(Math.ceil(this.countNum)+' Tk');
 				  }
 				});
 			});
@@ -109,10 +109,10 @@ function helper_income(){
 				content='<table class="table text-center"> <thead class="thead-dark"> <tr> <th>Title</th><th>Description</th> <th>Amount</th> <th>Date</th> </tr> </thead><tbody>';
 				for (start=0; start < end; start++) { 
 					
-					content += '<tr class="thover"> <td>'+obj[start]['title']+'</td> <td>'+obj[start]['description']+'</td> <td>'+obj[start]['amount']+' ৳'+'</td> <td>'+get_date(obj[start]['date'])+'</td> </tr>';
+					content += '<tr class="thover"> <td>'+obj[start]['title']+'</td> <td>'+obj[start]['description']+'</td> <td>'+obj[start]['amount']+' Tk'+'</td> <td>'+get_date(obj[start]['date'])+'</td> </tr>';
 				}
 				//console.log(data.value['total']);
-				content+='<tr class="thover"> <td colspan="3" style="font-weight: bold;color:#512DA8;font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8;font-size:20px;">'+total+' ৳'+'</td> </tr>';
+				content+='<tr class="thover"> <td colspan="3" style="font-weight: bold;color:#512DA8;font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8;font-size:20px;">'+total+' Tk'+'</td> </tr>';
 				content+='</tbody></table><br>';
 
 				content+='<nav aria-label="Page navigation example"> <ul class="pagination justify-content-center">';
@@ -181,9 +181,9 @@ function pagination_view_income(){
 
 		for (start; start < end; start++) { 
 			
-			content += '<tr class="thover"> <td>'+obj[start]['title']+'</td> <td>'+obj[start]['description']+'</td> <td>'+obj[start]['amount']+' ৳'+'</td> <td>'+get_date(obj[start]['date'])+'</td> </tr>';
+			content += '<tr class="thover"> <td>'+obj[start]['title']+'</td> <td>'+obj[start]['description']+'</td> <td>'+obj[start]['amount']+' Tk'+'</td> <td>'+get_date(obj[start]['date'])+'</td> </tr>';
 		}
-		content+='<tr class="thover"> <td colspan="3" style="font-weight: bold;color:#512DA8; font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8; font-size:20px;">'+total+' ৳'+'</td> </tr>';
+		content+='<tr class="thover"> <td colspan="3" style="font-weight: bold;color:#512DA8; font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8; font-size:20px;">'+total+' Tk'+'</td> </tr>';
 		content+='</tbody></table>';
 		$("#itable > table").html(content);
 
@@ -218,7 +218,7 @@ function expense_counter(){
 				  step: function() {
 				    // What todo on every count
 				    //console.log(Math.floor(this.countNum));
-				    $('#etotal').html(Math.ceil(this.countNum)+' ৳');
+				    $('#etotal').html(Math.ceil(this.countNum)+' Tk');
 				  }
 				});
 			});
@@ -230,7 +230,7 @@ function expense_counter(){
 				  step: function() {
 				    // What todo on every count
 				    //console.log(Math.floor(this.countNum));
-				    $('#eyear').html(Math.ceil(this.countNum)+' ৳');
+				    $('#eyear').html(Math.ceil(this.countNum)+' Tk');
 				  }
 				});
 			});
@@ -242,7 +242,7 @@ function expense_counter(){
 				  step: function() {
 				    // What todo on every count
 				    //console.log(Math.floor(this.countNum));
-				    $('#emonth').html(Math.ceil(this.countNum)+' ৳');
+				    $('#emonth').html(Math.ceil(this.countNum)+' Tk');
 				  }
 				});
 			});
@@ -293,10 +293,10 @@ function helper_expense(){
 				content='<table class="table text-center"> <thead class="thead-dark"> <tr> <th>Title</th><th>Description</th> <th>Amount</th> <th>Date</th> </tr> </thead><tbody>';
 				for (start=0; start < end; start++) { 
 					
-					content += '<tr class="thover"> <td>'+expense[start]['title']+'</td> <td>'+expense[start]['description']+'</td> <td>'+expense[start]['amount']+' ৳'+'</td> <td>'+get_date(expense[start]['date'])+'</td> </tr>';
+					content += '<tr class="thover"> <td>'+expense[start]['title']+'</td> <td>'+expense[start]['description']+'</td> <td>'+expense[start]['amount']+' Tk'+'</td> <td>'+get_date(expense[start]['date'])+'</td> </tr>';
 				}
 				//console.log(data.value['total']);
-				content+='<tr class="thover"> <td colspan="3" style="font-weight: bold;color:#512DA8;font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8;font-size:20px;">'+expense_total+' ৳'+'</td> </tr>';
+				content+='<tr class="thover"> <td colspan="3" style="font-weight: bold;color:#512DA8;font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8;font-size:20px;">'+expense_total+' Tk'+'</td> </tr>';
 				content+='</tbody></table><br>';
 
 				content+='<nav aria-label="Page navigation example"> <ul class="pagination justify-content-center">';
@@ -364,9 +364,9 @@ function pagination_view_expense(){
 
 		for (start; start < end; start++) { 
 			
-			content += '<tr class="thover"> <td>'+expense[start]['title']+'</td> <td>'+expense[start]['description']+'</td> <td>'+expense[start]['amount']+' ৳'+'</td> <td>'+get_date(expense[start]['date'])+'</td> </tr>';
+			content += '<tr class="thover"> <td>'+expense[start]['title']+'</td> <td>'+expense[start]['description']+'</td> <td>'+expense[start]['amount']+' Tk'+'</td> <td>'+get_date(expense[start]['date'])+'</td> </tr>';
 		}
-		content+='<tr class="thover"> <td colspan="3" style="font-weight: bold;color:#512DA8; font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8; font-size:20px;">'+expense_total+' ৳'+'</td> </tr>';
+		content+='<tr class="thover"> <td colspan="3" style="font-weight: bold;color:#512DA8; font-size:20px;">Total</td> <td style="font-weight: bold;color:#512DA8; font-size:20px;">'+expense_total+' Tk'+'</td> </tr>';
 		content+='</tbody></table>';
 		$("#etable > table").html(content);
 
@@ -610,7 +610,7 @@ function home_content(){
 				
 						for (start=0; start < data.length; start++) { 
 
-							content += '<tr class="thover"> <td>'+data[start]['title']+' </td><td>'+data[start]['description']+' <span>৳</span></td><td>'+data[start]['amount']+'</td><td>'+get_month(data[start]['date'])+'</td> </tr>';
+							content += '<tr class="thover"> <td>'+data[start]['title']+' </td><td>'+data[start]['description']+'</td><td>'+data[start]['amount']+' Tk</td><td>'+get_month(data[start]['date'])+'</td> </tr>';
 							
 						}
 						

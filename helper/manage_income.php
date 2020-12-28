@@ -35,7 +35,7 @@
 	<link rel="stylesheet" href="../css/fontawesome/css/all.css">
 	<link rel="stylesheet" href="../css/nav.css">
 	<link rel="icon" type="image/gif/png" href="../img/symbol.png">
-	<title>Add Income</title>
+	<title>Manage Income</title>
 
 	<style> #iactive{color: #C8C8C8 !important;} </style>
 
@@ -113,7 +113,7 @@
 	</div>
 
 
-<!------ Edit Modal ----------->
+<!-- Edit Modal -->
 
 	<div class="modal fade" id="update_income" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 	aria-hidden="true">
@@ -172,7 +172,7 @@
 					
 					<div class="modal-footer pt-4" style="border-top: none">
 			        	<button type="button" class="btn btn-secondary" id="btn_close" data-dismiss="modal">Close</button>
-			        	<!-- <button type="submit" name="add" id="add_user" class="btn btn-primary">Add User</button> -->
+			        	<!-- <button type="submit" name="add" id="add_user" class="btn btn-primary">Add User</button>  -->
 			        	<button type="button" name="add" id="modify_income" class="btn btn-primary">Update Income</button>
 			        </div>
 

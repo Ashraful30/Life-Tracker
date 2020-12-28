@@ -30,7 +30,7 @@
 		$row=mysqli_fetch_assoc($result);
 		$category=$row['category_name'];
 
-		$sql="SELECT * FROM event WHERE parent_id='$id' ";
+		$sql="SELECT * FROM event WHERE parent_id='$id'  ORDER BY id DESC";
 		$res=mysqli_query($conn,$sql);
 
 		if ($res) {
@@ -40,11 +40,10 @@
 				$value.='<tr class="thover">
 							<td>'.$row['title'].'</td>
 							<td>'.$row['description'].'</td>
-							<td>'.$row['amount'].' ৳'.'</td>
+							<td>'.number_format($row['amount']).' Tk'.'</td>
 							<td>'.$row['date'].'</td>
 							<td>'.$category.'</td>
-							<td><button type="button" class="btn btn-primary" id="edit_income" data-id='.$row['id'].'><i class="fas fa-edit"></i> Edit</button>
-							<button type="button" class="btn btn-danger" id="delete_income" parent-id='.$id.' data-id='.$row['id'].'><i class="far fa-trash-alt"></i> Delete</button></td>
+							<td><button type="button" class="btn btn-primary" id="edit_income" data-id='.$row['id'].'><i class="fas fa-edit"></i></button><button type="button" class="btn btn-danger" id="delete_income" parent-id='.$id.' data-id='.$row['id'].'><i class="far fa-trash-alt"></i></button></td>
 						</tr>';
 			}
 			$value.='</tbody></table>';
@@ -240,12 +239,12 @@
 				$value[$i]['title']=$row['title'];
 				$value[$i]['description']=$row['description'];
 				$value[$i]['date']=$row['date'];
-				$value[$i]['amount']=$row['amount'];
+				$value[$i]['amount']=number_format($row['amount']);
 				$total+=$row['amount'];
 				$i++;
 			}
 			$data['data']=$value;
-			$data['total']=$total;
+			$data['total']=number_format($total);
 			//echo $value;
 			echo json_encode(['status'=>'success','value'=>$data]);
 			//echo $value;
@@ -275,7 +274,7 @@
 				$value[$i]['title']=$row['title'];
 				$value[$i]['date']=$row['date'];
 				$value[$i]['description']=$row['description'];
-				$value[$i]['amount']=$row['amount'];
+				$value[$i]['amount']=number_format($row['amount']);
 				$i++;
 			}
 			//echo $value;

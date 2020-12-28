@@ -29,7 +29,7 @@
 		$row=mysqli_fetch_assoc($result);
 		$category=$row['category_name'];
 
-		$sql="SELECT * FROM event WHERE parent_id='$id' ";
+		$sql="SELECT * FROM event WHERE parent_id='$id' ORDER BY MONTH(`date`) ASC";
 		$res=mysqli_query($conn,$sql);
 
 		if ($res) {
@@ -41,8 +41,7 @@
 							<td>'.$row['description'].'</td>
 							<td>'.$row['date'].'</td>
 							<td>'.$category.'</td>
-							<td><button type="button" class="btn btn-primary" id="edit_life_event" data-id='.$row['id'].'><i class="fas fa-edit"></i> Edit</button>
-							<button type="button" class="btn btn-danger" id="delete_life_event" parent-id='.$id.' data-id='.$row['id'].'><i class="far fa-trash-alt"></i> Delete</button></td>
+							<td><button type="button" class="btn btn-primary" id="edit_life_event" data-id='.$row['id'].'><i class="fas fa-edit"></i></button><button type="button" class="btn btn-danger" id="delete_life_event" parent-id='.$id.' data-id='.$row['id'].'><i class="far fa-trash-alt"></i></button></td>
 						</tr>';
 			}
 			$value.='</tbody></table>';
