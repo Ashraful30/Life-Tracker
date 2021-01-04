@@ -29,7 +29,7 @@
 		$row=mysqli_fetch_assoc($result);
 		$category=$row['category_name'];
 
-		$sql="SELECT * FROM event WHERE parent_id='$id' ORDER BY MONTH(`date`) ASC";
+		$sql="SELECT * FROM event WHERE parent_id='$id' ORDER BY MONTH(`date`),DAY(`date`) ASC";
 		$res=mysqli_query($conn,$sql);
 
 		if ($res) {
@@ -151,10 +151,10 @@
 		$value=[];
 		
 		if($cat == 'all'){
-			$sql="SELECT title,description,date FROM `event` WHERE parent_id IN (SELECT id FROM category WHERE parent_id IN(SELECT id FROM category WHERE category_name='Life Event' AND parent_id IS null)) ORDER BY YEAR(`date`) DESC";
+			$sql="SELECT title,description,date FROM `event` WHERE parent_id IN (SELECT id FROM category WHERE parent_id IN(SELECT id FROM category WHERE category_name='Life Event' AND parent_id IS null)) ORDER BY MONTH(`date`),DAY(`date`) ASC";
 		}
 		else{
-			$sql="SELECT title,description,date FROM `event` WHERE parent_id='$cat' ORDER BY YEAR(`date`) DESC";
+			$sql="SELECT title,description,date FROM `event` WHERE parent_id='$cat' ORDER BY MONTH(`date`),DAY(`date`) ASC";
 		}
 
 		$res=mysqli_query($conn,$sql);
@@ -226,7 +226,7 @@
 				$i++;
 			}
 			$data['tomorrow']=$value;
-			$day=date('d');
+			$day=date('d')+1;
 			$month=date('m');
 			$up= [];
 			$sql="SELECT title,description,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT DISTINCT id FROM category WHERE category_name='Life Event'))) AND MONTH(`date`) = '$month' AND DAY(`date`) > '$day'  ORDER BY DAY(`date`) ASC ";
@@ -261,7 +261,7 @@
 					}
 					if($i < 11){
 
-						$sql="SELECT title,description,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT DISTINCT id FROM category WHERE category_name='Life Event'))) AND MONTH(`date`) >=1 AND MONTH(`date`) < '$month' ORDER BY MONTH(`date`) ASC ";
+						$sql="SELECT title,description,date FROM `event` WHERE parent_id IN ((SELECT id FROM category WHERE parent_id=(SELECT DISTINCT id FROM category WHERE category_name='Life Event'))) AND MONTH(`date`) >=1 AND MONTH(`date`) <= '$month' ORDER BY MONTH(`date`),DAY(`date`) ASC ";
 						$res=mysqli_query($conn,$sql);
 						if ($res) {
 							while ($row=mysqli_fetch_assoc($res)) {
