@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
 
+	//helper_income();
 	income_counter();
 	view_income();
 	pagination_view_income();
@@ -27,41 +28,46 @@ function income_counter(){
 		success: function(data){
 			//console.log(data);
 			data = $.parseJSON(data);
-			$('.icount3').each(function (){
+			//console.log(data);
+			// $('.icount3').each(function (){
 
-				$({countNum: 0}).animate({countNum: data['total']}, {
-				  duration: 5000,
-				  step: function() {
-				    // What todo on every count
-				    //console.log(Math.floor(this.countNum));
-				    $('#itotal').html(Math.ceil(this.countNum)+' Tk');
-				  }
-				});
-			});
+			// 	$({countNum: 0}).animate({countNum: data['total']}, {
+			// 	  duration: 5000,
+			// 	  step: function() {
+			// 	    // What todo on every count
+			// 	    //console.log(Math.floor(this.countNum));
+			// 	    $('#itotal').html(Math.ceil(this.countNum)+' Tk');
+			// 	  }
+			// 	});
+			// });
+	
+			$('#itotal').html(Math.ceil(data['total'])+' Tk');
+			$('#iyear').html(Math.ceil(data['year'])+' Tk');
+			$('#imonth').html(Math.ceil(data['month'])+' Tk');
 
-			$('.icount2').each(function (){
+			// $('.icount2').each(function (){
 
-				$({countNum: 0}).animate({countNum: data['year']}, {
-				  duration: 5000,
-				  step: function() {
-				    // What todo on every count
-				    //console.log(Math.floor(this.countNum));
-				    $('#iyear').html(Math.ceil(this.countNum)+' Tk');
-				  }
-				});
-			});
+			// 	$({countNum: 0}).animate({countNum: data['year']}, {
+			// 	  duration: 5000,
+			// 	  step: function() {
+			// 	    // What todo on every count
+			// 	    //console.log(Math.floor(this.countNum));
+			// 	    $('#iyear').html(Math.ceil(this.countNum)+' Tk');
+			// 	  }
+			// 	});
+			// });
 
-			$('.icount3').each(function (){
+			// $('.icount3').each(function (){
 
-				$({countNum: 0}).animate({countNum: data['month']}, {
-				  duration: 5000,
-				  step: function() {
-				    // What todo on every count
-				    //console.log(Math.floor(this.countNum));
-				    $('#imonth').html(Math.ceil(this.countNum)+' Tk');
-				  }
-				});
-			});
+			// 	$({countNum: 0}).animate({countNum: data['month']}, {
+			// 	  duration: 5000,
+			// 	  step: function() {
+			// 	    // What todo on every count
+			// 	    //console.log(Math.floor(this.countNum));
+			// 	    $('#imonth').html(Math.ceil(this.countNum)+' Tk');
+			// 	  }
+			// 	});
+			// });
 		}
 	})
 }

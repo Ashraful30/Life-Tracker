@@ -26,7 +26,7 @@
 		    header('location:home.php');
 		}
 		else{
-			$log_in_error="Incorrect Email & Password";
+			$log_in_error="Incorrect Email or Password";
 		}
 	}
 
